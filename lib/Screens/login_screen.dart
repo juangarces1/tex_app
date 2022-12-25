@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tex_app/Components/default_button.dart';
 import 'package:tex_app/Components/loader_component.dart';
 import 'package:tex_app/Helpers/constans.dart';
 import 'package:tex_app/Models/user.dart';
@@ -219,19 +220,7 @@ void _storeUser(String body) async {
   }
 
   Widget _showLoginButton() {
-    return Expanded(
-      child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              return kPrimaryColor;
-            }
-          ),
-        ),
-        onPressed: () => _login(),
-        child: const Text('Iniciar Sesión'), 
-      ),
-    );
+    return DefaultButton(text: 'Iniciar Sescion', press: () => _login(),);
   }
   
   void goHome(User user) {
