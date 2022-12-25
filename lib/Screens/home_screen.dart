@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tex_app/Components/app_bar_home.dart';
 import 'package:tex_app/Models/compra.dart';
 import 'package:tex_app/Models/menu.dart';
@@ -51,16 +52,14 @@ List<Menu> menus = [];
         shape: const CircularNotchedRectangle(),
         child: IconTheme(
          data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-         child: SizedBox(
+         child: Container(
+           decoration: const BoxDecoration(        
+            gradient: kGradientAppBarHome,),
           height: 50,
-           child: Row(
-             mainAxisSize: MainAxisSize.max,
-             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[    
-               Text(
-                  'Usuario: ${widget.user.fullName}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),),
-               ],          
-             ),
+           child: Center(
+             child: Text(
+                widget.user.fullName!, style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+           ),
          ),
         ),
        ), 

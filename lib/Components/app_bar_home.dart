@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tex_app/constans.dart';
-import 'package:tex_app/sizeconfig.dart';
 
 
 class AppBarHome extends StatelessWidget {
@@ -10,39 +10,14 @@ class AppBarHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-     // color: kColorHomeBar,
+     
+     padding: const EdgeInsets.all(5),
       decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/AppBarBack.png"),
-                  fit: BoxFit.cover,
-                ),),
-      child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20), vertical: getProportionateScreenHeight(10)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-           
-           
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-              decoration: BoxDecoration(
-                
-                color: Colors.white.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children:  const [
-                  Text('TexApp' , style:  TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: kPrimaryColor),),
-                  SizedBox(width: 5),
-                
-                ],
-              ),
-            )
-          ],
-        ),
+        
+        gradient: kGradientAppBarHome,
+      
       ),
-      );
+      child: Center(child: Text('TexApp' , style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white))),
+    );
   }
 }
