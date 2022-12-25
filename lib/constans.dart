@@ -23,6 +23,7 @@ const kPrimaryGradientColor = LinearGradient(
   colors: [kPrimaryColor, kColorMyLogo],
 );
 const kGradientTexApp = LinearGradient(colors: [ Color(0xffc91047), Color(0xffc94216)]);
+const kGradientAppBarHome = LinearGradient(colors: [Color.fromARGB(255, 101, 5, 139), Color(0xffc91047) ]);
 const kAlternativeGradientColor = LinearGradient(colors: [Colors.pink, Colors.green]);
 const kNewPedidoColor =Color(0xFF185152);
 const kSecondaryColor = Color(0xFF5559a3);

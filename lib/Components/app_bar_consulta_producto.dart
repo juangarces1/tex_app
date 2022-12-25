@@ -7,9 +7,12 @@ import '../../../sizeconfig.dart';
 class AppBarProducto extends StatefulWidget {
   final Function? press;
   final Text titulo;
-  final Function? btnPress;
- 
+  final Function? btnPress; 
   final AssetImage image;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8045f2a4496db0d44227c02c2305c6b3a7e1fb03
   const AppBarProducto({super.key, 
     this.press, required this.titulo,  required this.image, this.btnPress
   });
