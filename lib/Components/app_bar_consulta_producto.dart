@@ -10,7 +10,7 @@ class AppBarProducto extends StatefulWidget {
   final Function? btnPress;
  
   final AssetImage image;
-  const AppBarProducto({
+  const AppBarProducto({super.key, 
     this.press, required this.titulo,  required this.image, this.btnPress
   });
 
