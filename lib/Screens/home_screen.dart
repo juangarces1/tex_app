@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tex_app/Components/app_bar_home.dart';
@@ -14,7 +13,6 @@ import 'package:tex_app/Screens/consulta_producto_screen.dart';
 import 'package:tex_app/Screens/login_screen.dart';
 import 'package:tex_app/Screens/orden_entrada.dart';
 import 'package:tex_app/Screens/order_new.dart';
-import 'package:tex_app/Screens/order_screen.dart';
 import 'package:tex_app/Screens/pedidos_screen.dart';
 import 'package:tex_app/constans.dart';
 import 'package:tex_app/sizeconfig.dart';
@@ -22,7 +20,6 @@ import 'package:tex_app/sizeconfig.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.user,});
   final User user;
-
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -110,29 +107,15 @@ List<Menu> menus = [];
     );
   }
  
-  void goLogin() {
-      Navigator.pushReplacement(
-      context, 
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen()
-      )
-    );
-  }
 
-  void goPedido() {
-    Order orden = Order(documentUser:widget.user.document, detalles: [],);
-     Navigator.push(
-      context, 
-      MaterialPageRoute(
-        builder: (context) =>  OrderScreen(orden: orden, codigo: '',)
-      )
-    );
-  }
+
+
   
   _goMenu(String? nombre) {
        if(nombre=='Orden'){      
        Order order = Order(detalles: []);
-        Navigator.of(context).pushReplacement(        
+        Navigator.push(
+          context,       
         MaterialPageRoute(
           builder: (context) => OrderNewScreen(orden: order, user: widget.user, isOld: true,)
         )
