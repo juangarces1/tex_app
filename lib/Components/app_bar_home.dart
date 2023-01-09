@@ -14,7 +14,7 @@ class AppBarHome extends StatelessWidget {
      padding: const EdgeInsets.all(5),
       decoration: const BoxDecoration(
         
-        gradient: kGradientAppBarHome,
+        gradient: kGradientHome,
       
       ),
       child: Center(child: Text('TexApp' , style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white))),

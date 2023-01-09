@@ -3,6 +3,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../constans.dart';
 
@@ -35,13 +36,13 @@ class DefaultButton extends StatelessWidget {
                    kGradientTexApp,
                 borderRadius: BorderRadius.circular(10)),
             child: Container(
-              width: 200,
+              width: 170,
               height: 50,
               alignment: Alignment.center,
               child:  Text(
                 text!,
                 style:
-                    const TextStyle(fontSize: 20, fontStyle: FontStyle.normal, fontWeight: FontWeight.bold),
+                     GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)
               ),
             ),
           ),

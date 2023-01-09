@@ -10,7 +10,8 @@ class InventarioView {
   String? valor;
 
   InventarioView(
-      {this.categoria,
+     {
+      this.categoria,
       this.producto,
       this.color,
       this.medida,
@@ -36,9 +37,7 @@ class InventarioView {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-   
-   
+    final Map<String, dynamic> data = <String, dynamic>{};  
     return data;
   }
 }

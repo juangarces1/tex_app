@@ -66,6 +66,7 @@ class Roll {
     data['codigoBarras'] = codigoBarras;
     data['inventario'] = inventario;
     data['movimienotos'] = movimienotos;
+    data['status']=status;
     return data;
   }
 }

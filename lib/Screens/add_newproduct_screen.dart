@@ -119,7 +119,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[               
               SizedBox(                
-                height: 35,
+                height: 50,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),
@@ -127,7 +127,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                     'Productos:${products.length.toString()}', 
                       style: const TextStyle(
                         color: Colors.white,
-                         fontSize: 15, 
+                         fontSize: 18, 
                          fontWeight: FontWeight.bold),
                          ),
                   ),
@@ -451,7 +451,7 @@ Widget _showDescripcion() {
 }
  
  void _goSave()  async {
-      if(products.isEmpty){
+    if(products.isEmpty){
        await showAlertDialog(
         context: context,
         title: 'Error', 

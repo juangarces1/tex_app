@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:tex_app/Helpers/constans.dart';
 import 'package:tex_app/Models/category.dart';
 import 'package:tex_app/Models/color.dart';
+import 'package:tex_app/Models/compra.dart';
 import 'package:tex_app/Models/inventario.dart';
 import 'package:tex_app/Models/orderview.dart';
 import 'package:tex_app/Models/product.dart';
@@ -91,6 +92,36 @@ class ApiHelper{
     }
 
     return Response(isSuccess: true, result: pedidos);
+ }
+
+  static Future<Response> getCompraByNum(String nume) async {  
+
+    var url = Uri.parse('${Constans.apiUrl}/api/Kilos/GetCompraByNum/$nume');
+    var response = await http.get(
+      url,
+      headers: {
+        'content-type' : 'application/json',
+        'accept' : 'application/json',
+      },        
+    );
+    
+
+    var body = response.body;
+   
+    if (response.statusCode >= 400) {
+        body="No se encontro la Compra";
+       return Response(isSuccess: false, message: body);
+    }
+
+    List<Compra> compras = [];
+    var decodedJson = jsonDecode(body);
+     if(decodedJson != null){
+      for (var item in decodedJson){
+        compras.add(Compra.fromJson(item));
+      }
+    }
+
+    return Response(isSuccess: true, result: compras);
  }
  
   static Future<Response> getCategoies() async {  

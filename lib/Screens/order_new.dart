@@ -57,8 +57,11 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
           color: kNewPedidoColor,
           shape: const CircularNotchedRectangle(),
           child: IconTheme(
-            data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-           child: SizedBox(
+           data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+           child: Container(
+            decoration: const BoxDecoration(
+              gradient: kGradientHome,
+            ),
             height: 70,
              child: Row(
                mainAxisSize: MainAxisSize.max,
@@ -69,12 +72,12 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
                    child: RawMaterialButton(
                       onPressed: _goAdd,
                       elevation: 2.0,
-                      fillColor: const Color.fromARGB(255, 12, 163, 92),
+                      fillColor: const Color.fromARGB(255, 129, 7, 82),
                       padding: const EdgeInsets.all(12.0),
                       shape: const CircleBorder(),
                       child: const Icon(
                         Icons.add,
-                        size: 25.0,
+                        size: 30.0,
                       ),
                     ),
                  ),
@@ -84,12 +87,12 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
                    child: RawMaterialButton(
                       onPressed: goSave,
                       elevation: 2.0,
-                      fillColor: const Color.fromARGB(255, 20, 121, 189),
+                      fillColor: const Color.fromARGB(255, 3, 52, 158),
                       padding: const EdgeInsets.all(12.0),
                       shape: const CircleBorder(),
                       child: const Icon(
                         Icons.save,
-                        size: 25.0,
+                        size: 30.0,
                       ),
                     ),
                  ),

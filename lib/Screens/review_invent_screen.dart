@@ -1,41 +1,41 @@
-
-
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+import 'package:tex_app/Components/card_product.dart';
 import 'package:tex_app/Components/loader_component.dart';
 import 'package:tex_app/Components/text_derecha.dart';
 import 'package:tex_app/Components/text_encabezado.dart';
 import 'package:tex_app/Helpers/api_helper.dart';
-import 'package:tex_app/Models/changestateroll.dart';
+import 'package:tex_app/Models/invent_review.dart';
+import 'package:tex_app/Models/product.dart';
+import 'package:tex_app/Models/response.dart';
+import 'package:tex_app/Models/roll.dart';
 import 'package:tex_app/constans.dart';
 import 'package:tex_app/sizeconfig.dart';
 
-import '../Models/response.dart';
-import '../Models/roll.dart';
+import '../Models/user.dart';
 
-class OrdenEntradaScreen extends StatefulWidget {
-  const OrdenEntradaScreen({super.key, required this.status});
-  final String status;
+class ReviewInventScreen extends StatefulWidget {
+  final User user;
+  const ReviewInventScreen({super.key, required this.user});
 
   @override
-  State<OrdenEntradaScreen> createState() => _OrdenEntradaScreenState();
+  State<ReviewInventScreen> createState() => _ReviewInventScreenState();
 }
 
-class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
-  List<Roll> rollos = [];
+class _ReviewInventScreenState extends State<ReviewInventScreen> {
+  InventReview inventReview = InventReview(products: []);
   String? scanResult;
   bool showLoader=false;
- 
+  List<Roll> rollos = [];
+  bool showInvent = false;
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+     return WillPopScope(
        onWillPop: () async {
           bool willLeave = false;
           // show the confirm dialog
@@ -61,30 +61,28 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
         resizeToAvoidBottomInset: false,
          backgroundColor: kColorFondoOscuro,
         appBar: AppBar(
-           backgroundColor: const Color.fromARGB(255, 3, 27, 63),
+           backgroundColor:  const Color.fromARGB(255, 8, 44, 107),
           title:   Text(
-            'Orden de Entrada Alamcen',
-              style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)
+            'Revisar Inventario',
+              style: GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-           actions: <Widget>[
-         
+           actions: <Widget>[         
             IconButton(
               onPressed: scanBarCode, 
-              icon: const Icon(Icons.camera_alt_outlined, color: Colors.white, size: 25,)
-            )
-          
+              icon: const Icon(Icons.camera_alt_outlined, color: Colors.white,)
+            )          
         ],
          
         ),
         body:  Stack(
           children: [
-          newList(),
+             showInvent == false ? newList() : showInventario(),
             showLoader ? const LoaderComponent(text: 'Cargando') : Container(),
           ],
         ),
 
           bottomNavigationBar: BottomAppBar(
-          color:  const Color.fromARGB(255, 3, 27, 63),
+          color:  const Color.fromARGB(255, 8, 44, 107),
           shape: const CircularNotchedRectangle(),
           child: IconTheme(
             data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
@@ -93,11 +91,14 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 IconButton(             
-                icon: const Icon(Icons.menu, color: Colors.white,),
-                onPressed: () {},
+                icon: showInvent==false ? const Icon(Icons.switch_right, color: Colors.white, size: 35,): const Icon(Icons.switch_left, color: Colors.white, size: 35,),
+                onPressed: () => setState(() {
+                  showInvent=!showInvent;
+                }),
               ),
+              const SizedBox(width: 20,),
               Text(
-               rollos.isNotEmpty ? 'Prod: ${rollos.length.toString()}  -  Total: ${NumberFormat("###,000", "es_CO").format(rollos.map((item)=>item.cantidad!).reduce((value, element) => value + element))}' : '', style: GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+               rollos.isNotEmpty ? 'Productos: ${inventReview.products.length.toString()}  -  Rollos: ${rollos.length}' : '', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),),
 
                ],          
              ),
@@ -120,7 +121,7 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
 
   Widget newList() {
    return  Container(
-        color: kColorFondoOscuro,
+        color: kContrastColorMedium,
         child: Stack(
           children: [ Padding(
           padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10), vertical: getProportionateScreenHeight(10)),
@@ -159,12 +160,11 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                             TextEncabezado(texto:'${rollos[index].product!.descripcion.toString()} ${rollos[index].product!.color!.toString()}'),
+                          children: [                        
+                            TextEncabezado(texto:'${rollos[index].product!.descripcion.toString()} ${rollos[index].product!.color!.toString()}'),
                             TextDerecha(texto: 'CodBarras: ${rollos[index].codigoBarras}') ,                  
                              TextEncabezado(texto: 'Cantidad ${rollos[index].cantidad.toString()}'),
-                            TextDerecha(texto: 'Stock ${rollos[index].inventario}') , 
-                                                       
+                            TextDerecha(texto: 'Stock ${rollos[index].inventario}'),     
                           ],
                         ),
                       ),
@@ -181,12 +181,15 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
                                 }, child: const Text('No')),
                                   TextButton(onPressed: (){
                                    Roll  aux =rollos.firstWhere((element) => element.id == rollos[index].id);
+                                    goRemove(aux);
                                     setState(() {
                                      
                                       rollos.remove(aux);
                                    
                                     });
+                                   
                                     Navigator.of(context).pop(true);
+
                                   },
                                 child: const Text('Sí')),
                               ],    
@@ -221,150 +224,176 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
   }
 
   Future scanBarCode() async {
-  try {
-      scanResult = await FlutterBarcodeScanner.scanBarcode(
-        "#ff6666", "Cancel", true, ScanMode.BARCODE);
-  } on PlatformException{
-    scanResult='Fallo al obtener la versin de plataforma.';
-  }
-  if(!mounted) return;
+    try {
+        scanResult = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
+    } on PlatformException{
+      scanResult='Fallo al obtener la versin de plataforma.';
+    }
+    if(!mounted) return;
 
-  setState(() {
-   scanResult=scanResult;
-     });
+    setState(() {
+      scanResult=scanResult;
+    });
     _getRoll();
   }
 
   Future _getRoll() async {    
     var cides=scanResult??'';
-     if(cides.isEmpty){
+      if(cides.isEmpty){
       return;
     }
-     if(cides=='-1'){
+      if(cides=='-1'){
       return;
-    }   
-
-    setState(() {
-        showLoader=true;
-    });
+  }   
   
-    String code1 = cides.substring(1,9);
-    int code = int.parse(code1);
-    Response response = await ApiHelper.getRoll(code);
+  //quitamos los extremos del codigo 
+  // y lo convertimos a int
 
-    setState(() {
-        showLoader=false;
-    });
-  
-     if (!response.isSuccess) {
-      await Fluttertoast.showToast(
-          msg: "El Rollo no EXISTE",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
-      return;
-    }    
-    Roll roll = response.result; 
+  String code1 = cides.substring(1,9);
+  int code = int.parse(code1);
 
-    for (var element in rollos) {
-      if(element.id == roll.id){
-           await Fluttertoast.showToast(
-          msg: "El Rollo ya se agrego",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.blueAccent,
-          textColor: Colors.white,
-          fontSize: 16.0
+  //Miramos que no este en la lista
+  //antes de mandarlo a buscar
+
+   for (var element in rollos) {
+    if(element.id == code){
+       await Fluttertoast.showToast(
+        msg: "El Rollo ya se agrego",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.blueAccent,
+        textColor: Colors.white,
+        fontSize: 16.0
       );    
       return;
-      }
     }
-
-    if(roll.status=='EnBodega')   {
-        setState(() {
-      rollos.insert(0, roll);
-     });
-    }
-    else{
-      await Fluttertoast.showToast(
-          msg: "El Rollo no esta en Bodega",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );
-    }
-    
-   
   }
-  
-   void  goSave()  async {
-      if(rollos.isEmpty){
-       await showAlertDialog(
-        context: context,
-        title: 'Error', 
-        message: 'Agregue un rollo.',
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );    
-      return;
-    }
-    
-     setState(() {
-      showLoader = true;
-    });
 
-    ChageStateRoll order = ChageStateRoll(rollos: rollos, estado: widget.status);
-  
+  setState(() {
+      showLoader=true;
+  });
+ 
+  Response response = await ApiHelper.getRoll(code);
 
-   Map<String, dynamic> request = order.toJson();
-
-    Response response = await ApiHelper.post(
-      'api/kilos/ChangeRoll/', 
-      request, 
-      
-    );
-
-    setState(() {
-      showLoader = false;
-    });
+  setState(() {
+      showLoader=false;
+  });
 
     if (!response.isSuccess) {
-      await showAlertDialog(
-        context: context,
-        title: 'Error', 
-        message: response.message,
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );    
-      return;
-    }     
-              
+    await Fluttertoast.showToast(
+        msg: "El Rollo no EXISTE",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );     
+    return;
+  }    
+  Roll roll = response.result; 
+  
+  setState(() {
+    rollos.insert(0, roll);
+  });  
+  goProductAdd(roll);
+   
+}
 
-      setState(() {
-      rollos.clear();
-       
-      });
+  goSave() {
       
-    showAlertDialog(
-        context: context,
-        title: 'Ok', 
-        message: 'Orden Guardada Correcatemente',
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      ); 
+  }
+  
+  showInventario() {
+    return Container(color: kContrastColor,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(children: [
+          const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Center(child: TextEncabezado(texto: 'Resumen Inventario')),
+          ),
+        ...List.generate(
+            inventReview.products.length,
+              (index) { return CardProduct(product: inventReview.products[index]); 
+              }),
+         const SizedBox(height: 10,),     
+        ]),
+      ),
+    );
+  }
+  
+  goProductAdd(Roll roll) {
+   
+    Product pro = inventReview.products.firstWhere((element) => element.id == roll.product?.id, orElse: () => Product());
+
+    if(pro.id==null){
+      Product pro = roll.product!;
+      pro.totalEntradas=1;
+      pro.stock=roll.inventario;
+      if(roll.status=='EnBodega'){
+        pro.stockEnBodega=roll.inventario;
+      }
+      else{
+        pro.stockEnAlmacen=roll.inventario;
+      }
+      inventReview.products.add(pro);
+      
+    }
+    else{
+      for (var element in inventReview.products) {
+        if(element.id==roll.product?.id){         
+          element.totalEntradas = element.totalEntradas!+1;
+          element.stock=  element.stock! + roll.inventario!;
+          if(roll.status=='EnBodega'){
+            element.stockEnBodega= element.stockEnBodega! + roll.inventario!;
+          }
+          else{
+              element.stockEnAlmacen= element.stockEnAlmacen! + roll.inventario!;
+          }
+        }
+      }
+    }
+    
+    setState(() {
+      inventReview;
+   }); 
+
 
   }
-
   
+  void goRemove(Roll roll) { 
+      bool elimited=false;
+      for (var element in inventReview.products) {
+        if(element.id==roll.product?.id){         
+          element.totalEntradas= element.totalEntradas!-1;
+          element.stock =  element.stock! - roll.inventario!;
+          if(roll.status=='EnBodega'){
+            element.stockEnBodega= element.stockEnBodega! - roll.inventario!;
+          }
+          else{
+              element.stockEnAlmacen= element.stockEnAlmacen! - roll.inventario!;
+          }
+          if(element.stock==0){
+            elimited=true;
+          }
+          
+        }
+
+      }   
+      if(elimited){
+        var pro = inventReview.products.firstWhere((element) => element.id==roll.product!.id);
+        inventReview.products.remove(pro);
+      }
+
+    
+    setState(() {
+      inventReview;
+   }); 
+
+  }
 }
+
+ 

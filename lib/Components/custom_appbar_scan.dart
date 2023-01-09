@@ -27,11 +27,11 @@ class _CustomAppBarScanState extends State<CustomAppBarScan> {
   @override
   Widget build(BuildContext context) {
     return Container(
-       decoration:  BoxDecoration(
-               image: DecorationImage(
-                 image: widget.image,
-                 fit: BoxFit.cover,
-               ),),
+     
+    
+        decoration:  const BoxDecoration(
+          gradient: kGradientAppBarHome,
+                ),
       child: Padding(
         padding:
             EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20), vertical: getProportionateScreenHeight(10)),
@@ -60,19 +60,14 @@ class _CustomAppBarScanState extends State<CustomAppBarScan> {
             ),
             const SizedBox(width: 10,),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+          
+              padding: const EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(14),
+                color: const Color.fromARGB(255, 39, 38, 38).withOpacity(0.8),
+                borderRadius: BorderRadius.circular(10),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children:  [
-                  widget.titulo,
-                  const SizedBox(width: 5),
-                
-                ],
-              ),
+              child:   Center(child: widget.titulo),
+                 
             )
           ],
         ),

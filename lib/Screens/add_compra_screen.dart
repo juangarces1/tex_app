@@ -467,8 +467,6 @@ class _AddCompraScreenState extends State<AddCompraScreen> {
    );
  }
 
- 
-
   Widget _showSubTotal() {
     return Container(
       padding: const EdgeInsets.only(left: 50.0, right: 50),      

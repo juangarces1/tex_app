@@ -40,7 +40,7 @@ class Product {
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-     descripcion = json['descripcion'];   
+    descripcion = json['descripcion'];   
     stock = json['stock'].toDouble();
     stockEnBodega = json['stockEnBodega'].toDouble();
     stockEnAlmacen = json['stockEnAlmacen'].toDouble();

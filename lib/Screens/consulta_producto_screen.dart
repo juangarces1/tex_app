@@ -651,27 +651,26 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
       ));  
   }
   
-  refrescar() {
+ refrescar() {
     setState(() {
       swicht =true;
     });
   }
 
-  void _goChange(selectedItem) {
+ void _goChange(selectedItem) {
     setState(() {            
        auxProduct = selectedItem;
     });
     _getColors();
   }
 
-  void _goChangeColor(selectedItem)  {
+ void _goChangeColor(selectedItem)  {
      setState(() { 
       auxColor=selectedItem;
     });
   }   
  
-
-  Future goProductByID() async {
+ Future goProductByID() async {
     if(codProController.text.isEmpty){
       await Fluttertoast.showToast(
           msg: "Digite el codigo del producto",
@@ -704,7 +703,7 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
 
   }
 
-Future  goBuscarSelect() async {
+ Future  goBuscarSelect() async {
     if(auxColor.descripcion==null){
       await Fluttertoast.showToast(
           msg: "Seleccione un Producto y/o Color",
@@ -720,7 +719,7 @@ Future  goBuscarSelect() async {
       _getProductById(auxColor.id!);
   }
   
-  Future _getProductById(int code) async {
+ Future _getProductById(int code) async {
      setState(() {
         showLoader=true;
     }); 

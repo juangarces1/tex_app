@@ -50,7 +50,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     return SafeArea(
       
       child: Scaffold(
-        backgroundColor: kColorAlternativo,
+        backgroundColor: kColorFondoOscuro,
         appBar: PreferredSize(
               preferredSize: Size.fromHeight(AppBar().preferredSize.height),
               child:  CustomAppBarScan(              
@@ -62,29 +62,46 @@ class _AddProductScreenState extends State<AddProductScreen> {
         body:  Stack(
           children: [
             Container(
-              color: kContrastColor,
+              color: kContrastColorMedium,
               child: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
                   children:  [ 
-                     Container(
-                      color: kColorAlternativo,
+                     InkWell(
+                       onTap: scanBarCode,
                        child: Padding(
-                         padding:  const EdgeInsets.only(top: 20.0, bottom: 20),
-                         child: Center(
-                          child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: kContrastColor, backgroundColor: kPrimaryColor,
-                            ),
-                            icon: const Icon(Icons.camera_alt_outlined),
-                            label: const Text('Escanear Codigo', style: TextStyle(fontSize: 25),),
-                            onPressed: scanBarCode, 
+                         padding: const EdgeInsets.only(left: 45, right: 45, top: 10, bottom: 10),
+                         child: Container(
+                          
+                          height: 50,
+                          decoration:  const BoxDecoration(
+                            borderRadius:  BorderRadius.all(Radius.circular(10)),
+                            gradient: kGradientTexApp,
+                           
                           ),
+                           child: Center(
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:  [
+                                  const Icon(Icons.camera_alt_outlined, size: 30, color: Colors.white,),
+                                  const SizedBox(width: 10,),
+                                  Text('Escanear Codigo', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white)),
+                              ]),
+                                            
+                            // child: ElevatedButton.icon(
+                            //   style: ElevatedButton.styleFrom(
+                            //     foregroundColor: kContrastColor, gradient: kGradientTexApp,
+                            //   ),
+                            //   icon: const Icon(Icons.camera_alt_outlined),
+                            //   label: const Text('Escanear Codigo', style: TextStyle(fontSize: 30),),
+                            //   onPressed: scanBarCode, 
+                            // ),
+                           ),
                          ),
                        ),
                      ),                
                     Container(                    
-                      color: kColorAlternativo,
+                      color: kContrastColorMedium,
                       child: _showCodigo()),     
                    Container(height: 15, color: kContrastColor,),
                   rollAux.cantidad != null ?  _showInfo() : Container(),

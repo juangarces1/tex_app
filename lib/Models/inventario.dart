@@ -3,11 +3,11 @@ import 'package:tex_app/Models/inventarioview.dart';
 
 class Inventario {
  
-  List<InventarioView> detalle=[];
-  String? total;
+   List<InventarioView> detalle=[];
+   String? total;
    String? rollos;
-    String? kilos;
-     String? metros;
+   String? kilos;
+   String? metros;
 
   Inventario({required this.detalle,  this.total, this.rollos, this.kilos, this.metros});
 

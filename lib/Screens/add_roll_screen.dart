@@ -37,7 +37,8 @@ class AddRollScreen extends StatefulWidget {
 }
 
 class _AddRollScreenState extends State<AddRollScreen> {
-  
+  static const status=<String>['Bodega','Almacen'];
+  String seletedValue=status.first;
   List<Product> products = [];
   List<Product> pColors = [];
   bool showLoader = false; 
@@ -80,51 +81,48 @@ class _AddRollScreenState extends State<AddRollScreen> {
           body: Padding(
             padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
             child: Container(              
-              color: kColorAlternativo,
+              color: kContrastColor,
               child: SafeArea(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [ 
-                     Container(                     
-                      color: kContrastColor,
-                      child: Column(
-                      children: [                        
-                        const SizedBox(height: 10,),
-                        ComboProducts(onChanged: _goChange, backgroundColor: Colors.white60, products: products, titulo: 'Productos'),          
-                        ComboColores(onChanged: _goChangeColor, backgroundColor: Colors.white, products: pColors, titulo: 'Color') , 
-                        _showCantidad(),
-                        _showPrecio(),
-                        const SizedBox(height: 10,),                     
-                        SizedBox(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(), backgroundColor: kPrimaryColor, 
-                          padding: const EdgeInsets.all(8),
-                          ),
-                          onPressed: _goAdd,
-                        child: const Icon(
-                        Icons.add,
-                          size: 30,
-                        ),
-                      ),
-                      ),
-                      const SizedBox(height: 10,),
-                      ],
-                     ),
+                     const SizedBox(height: 10,),
 
+                     const Text('Seleccione la Ubicacion', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                     Padding(
+                       padding:   const EdgeInsets.only(left: 10, right: 10, top: 5, ),  
+                       child: buildRadios(),
                      ),
-                  
-                     
-                    
-                
-                       const Divider(height: 10,  thickness: 2, color: kContrastColor, ), 
-                       _showListNew(),
-                      
-                    
-                     widget.ruta == null ?   DefaultButton(text: 'Crear', press: () => _goSave(),) : DefaultButton(text: 'Enviar', press: () => _goCompra(),),
-                
-                    const Divider( height: 10,  thickness: 2, color: kContrastColor, ), 
-                      const SizedBox(height: 20,),
+                     ComboProducts(onChanged: _goChange, backgroundColor: Colors.white, products: products, titulo: 'Productos'),          
+                     ComboColores(onChanged: _goChangeColor, backgroundColor: Colors.white, products: pColors, titulo: 'Color') , 
+                     _showCantidad(),
+                     _showPrecio(),
+                     const SizedBox(height: 10,),                     
+                     SizedBox(
+                     child: ElevatedButton(
+                       style: ElevatedButton.styleFrom(
+                       shape: const CircleBorder(), backgroundColor: kPrimaryColor, 
+                       padding: const EdgeInsets.all(8),
+                       ),
+                       onPressed: _goAdd,
+                     child: const Icon(
+                     Icons.add,
+                       size: 30,
+                     ),
+                     ),
+                     ),
+                    const SizedBox(height: 10,),                 
+                    const Divider(height: 10,  thickness: 2, color: kColorFondoOscuro, ), 
+                    _showListNew(),
+                    const Divider( height: 10,  thickness: 2, color: kColorFondoOscuro, ), 
+                    const SizedBox(height: 10,),                    
+                    widget.ruta == null ?   DefaultButton(
+                      text: 'Crear',
+                       press: () => _goSave(),) 
+                       : DefaultButton(
+                        text: 'Enviar', 
+                        press: () => _goCompra(),),                                
+                    const SizedBox(height: 20,),
                     ],
                   ),
                 ),
@@ -132,53 +130,53 @@ class _AddRollScreenState extends State<AddRollScreen> {
             ),
           ),
 
-            bottomNavigationBar: BottomAppBar(
-                notchMargin: 6.0,
-            color: kPrimaryColor,
-            shape: const CircularNotchedRectangle(),
-            child: IconTheme(
-              data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-              child: Row(
-               mainAxisSize: MainAxisSize.max,
-               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[               
-                SizedBox(                
-                  height: 35,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Text(
-                      'Rollos: ${localrolls.length.toString()}', 
-                        style: const TextStyle(
-                          color: Colors.white,
-                           fontSize: 15, 
-                           fontWeight: FontWeight.bold),
-                           ),
-                    ),
-                  ),
+        bottomNavigationBar: BottomAppBar(
+        notchMargin: 6.0,
+        color: kPrimaryColor,
+        shape: const CircularNotchedRectangle(),
+        child: IconTheme(
+          data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[               
+            SizedBox(                
+              height: 50,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(
+                  'Rollos: ${localrolls.length.toString()}', 
+                    style: const TextStyle(
+                      color: Colors.white,
+                        fontSize: 18, 
+                        fontWeight: FontWeight.bold),
+                        ),
                 ),
-                 SizedBox(                
-                  height: 35,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Text(
-                       localrolls.isNotEmpty ? 'Cantidad: ${NumberFormat("###,000", "es_CO").format(localrolls.map((item)=>item.cantidad!).reduce((value, element) => value + element))}' : '', 
-                        style: const TextStyle(
-                          color: Colors.white,
-                           fontSize: 15, 
-                           fontWeight: FontWeight.bold),
-                           ),
-                    ),
-                  ),
-                ),
-               
-                 ],          
-               ),
+              ),
             ),
-           ), 
-          
+              SizedBox(                
+              height: 35,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(
+                    localrolls.isNotEmpty ? 'Cantidad: ${NumberFormat("###,000", "es_CO").format(localrolls.map((item)=>item.cantidad!).reduce((value, element) => value + element))}' : '', 
+                    style: const TextStyle(
+                      color: Colors.white,
+                        fontSize: 15, 
+                        fontWeight: FontWeight.bold),
+                        ),
+                ),
+              ),
+            ),
+            
+            ],          
+          ),
         ),
+      ), 
+          
+      ),
     );
   }
 
@@ -370,7 +368,7 @@ class _AddRollScreenState extends State<AddRollScreen> {
  
  Widget _showListNew() {
   return  Container(
-  color: kColorAlternativo,
+  color: kContrastColor,
     child: Column( 
       children: [
        
@@ -401,7 +399,7 @@ class _AddRollScreenState extends State<AddRollScreen> {
     child:  Stack(
       children: [
        Card(
-          color:kContrastColor,
+          color:Colors.white,
           shadowColor: kPrimaryColor,
           elevation: 8,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -556,14 +554,15 @@ class _AddRollScreenState extends State<AddRollScreen> {
 
   if (!response.isSuccess) {     
 
-    await showAlertDialog(
-      context: context,
-      title: 'Error', 
-      message: response.message,
-      actions: <AlertDialogAction>[
-          const AlertDialogAction(key: null, label: 'Aceptar'),
-      ]
-    );    
+    await  Fluttertoast.showToast(
+      msg: "Error al crear el rollo",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0
+    );     
     return;
   }     
             
@@ -572,14 +571,18 @@ class _AddRollScreenState extends State<AddRollScreen> {
     localrolls.clear();
   });
     
-  showAlertDialog(
-      context: context,
-      title: 'Ok', 
-      message: 'Rollo(s) Creado(s)\nCorrecatemente',
-      actions: <AlertDialogAction>[
-          const AlertDialogAction(key: null, label: 'Aceptar'),
-      ]
-    ); 
+
+   await  Fluttertoast.showToast(
+      msg: 'Rollo(s) Creado(s)\nCorrecatemente',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 1,
+      backgroundColor: const Color.fromARGB(255, 11, 172, 91),
+      textColor: Colors.white,
+      fontSize: 16.0
+    );     
+    return; 
+  
   }
 
  void _goAdd() {
@@ -593,7 +596,7 @@ class _AddRollScreenState extends State<AddRollScreen> {
     double cant = double.parse(cantidadController.text);
     double precio = double.parse(precioController.text);
     defProduct.rolls=null;
-    Roll rollAux = Roll(id: 0, cantidad: cant, precio: precio, product: defProduct, medida: defProduct.descripcion); 
+    Roll rollAux = Roll(id: 0, cantidad: cant, precio: precio, product: defProduct, medida: defProduct.descripcion, status: seletedValue); 
 
    setState(() {
        localrolls.insert(0, rollAux);
@@ -651,4 +654,20 @@ class _AddRollScreenState extends State<AddRollScreen> {
       ));
     }     
   
+   Widget buildRadios() => Row(
+    children: status.map(
+      (value) {
+        return  Expanded(
+          child: RadioListTile<String>(
+            activeColor: kPrimaryColor,
+              value: value,
+              groupValue: seletedValue,
+              title:  Text(value),
+              onChanged: (value) => setState(() => seletedValue = value as String),
+          ),
+        );
+      }
+    ).toList(),
+   );
+ 
 }

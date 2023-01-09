@@ -9,11 +9,13 @@ import 'package:tex_app/Screens/Inventario_screen.dart';
 import 'package:tex_app/Screens/add_compra_screen.dart';
 import 'package:tex_app/Screens/add_newproduct_screen.dart';
 import 'package:tex_app/Screens/add_roll_screen.dart';
+import 'package:tex_app/Screens/compras_screen.dart';
 import 'package:tex_app/Screens/consulta_producto_screen.dart';
 import 'package:tex_app/Screens/login_screen.dart';
 import 'package:tex_app/Screens/orden_entrada.dart';
 import 'package:tex_app/Screens/order_new.dart';
 import 'package:tex_app/Screens/pedidos_screen.dart';
+import 'package:tex_app/Screens/review_invent_screen.dart';
 import 'package:tex_app/constans.dart';
 import 'package:tex_app/sizeconfig.dart';
 
@@ -50,12 +52,14 @@ List<Menu> menus = [];
         child: IconTheme(
          data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
          child: Container(
-           decoration: const BoxDecoration(        
-            gradient: kGradientAppBarHome,),
+          
+           decoration: const BoxDecoration(    
+                
+            gradient: kGradientHome,),
           height: 50,
            child: Center(
              child: Text(
-                widget.user.fullName!, style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+               'Hola ${widget.user.fullName!}!', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
            ),
          ),
         ),
@@ -68,7 +72,7 @@ List<Menu> menus = [];
     return Container(  
        decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/AppBack.png"),
+                image: AssetImage("assets/menuFondo2.png"),
                 fit: BoxFit.cover,
               ),),    
       padding: const EdgeInsets.all(10),
@@ -79,7 +83,7 @@ List<Menu> menus = [];
         children: menus.map((e) {          
           return Card(              
             color: e.color,
-              shadowColor: Colors.blueGrey,
+             
                   elevation: 8,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: InkWell(
@@ -94,7 +98,7 @@ List<Menu> menus = [];
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: kPrimaryColor,
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -106,11 +110,7 @@ List<Menu> menus = [];
       ),
     );
   }
- 
-
-
-
-  
+   
   _goMenu(String? nombre) {
        if(nombre=='Orden'){      
        Order order = Order(detalles: []);
@@ -118,6 +118,16 @@ List<Menu> menus = [];
           context,       
         MaterialPageRoute(
           builder: (context) => OrderNewScreen(orden: order, user: widget.user, isOld: true,)
+        )
+      );
+      return;
+    }
+
+      if(nombre=='Revisar Inventario'){     
+              Navigator.push(
+          context,       
+        MaterialPageRoute(
+          builder: (context) => ReviewInventScreen( user: widget.user,)
         )
       );
       return;
@@ -210,36 +220,50 @@ List<Menu> menus = [];
       );
       return;
     }
+    if(nombre=='Compras'){      
+      Navigator.push(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => CompasScreen(user: widget.user,)
+        )
+      );
+      return;
+    }
+    
   }
   
   void _getMenus() {
     if(widget.user.isAdmin==true){
-       Menu  menu= Menu(nombre: 'Crear Producto', assetV: 'assets/NewFondo.png', color: const Color.fromARGB(255, 182, 195, 230).withOpacity(0.7));
+       Menu  menu= Menu(nombre: 'Crear Producto', assetV: 'assets/NewFondo.png', color: const Color.fromARGB(255, 1, 5, 17).withOpacity(0.7));
         menus.add(menu);
-        menu= Menu(nombre: 'Agregar Rollo', assetV: 'assets/iconNuevo.png', color: const Color.fromARGB(255, 143, 161, 189).withOpacity(0.7));
+        menu= Menu(nombre: 'Agregar Rollo', assetV: 'assets/iconNuevo.png', color: const Color.fromARGB(255, 4, 37, 88).withOpacity(0.7));
         menus.add(menu);
-          menu= Menu(nombre: 'Agregar Compra', assetV: 'assets/Factura.png', color: const Color.fromARGB(255, 143, 161, 189).withOpacity(0.7));
+          menu= Menu(nombre: 'Agregar Compra', assetV: 'assets/Factura.png', color: const Color.fromARGB(255, 6, 5, 75).withOpacity(0.7));
         menus.add(menu);
-        menu= Menu(nombre: 'Entrada Almacen', assetV: 'assets/Almacen.png', color: const Color.fromARGB(248, 160, 195, 211).withOpacity(0.7));
+           menu= Menu(nombre: 'Compras', assetV: 'assets/Factura.png', color: const Color.fromARGB(255, 6, 5, 75).withOpacity(0.7));
+        menus.add(menu);
+        menu= Menu(nombre: 'Entrada Almacen', assetV: 'assets/Almacen.png', color: const Color.fromARGB(248, 5, 51, 73).withOpacity(0.7));
+        menus.add(menu); 
+          menu= Menu(nombre: 'Revisar Inventario', assetV: 'assets/inventario.png', color: const Color.fromARGB(248, 5, 51, 73).withOpacity(0.7));
         menus.add(menu); 
     }
  
-      Menu menu= Menu(nombre: 'Nuevo Pedido', assetV: 'assets/Cart.png', color: const Color.fromARGB(255, 203, 209, 212).withOpacity(0.7));
+      Menu menu= Menu(nombre: 'Nuevo Pedido', assetV: 'assets/Cart.png', color: const Color.fromARGB(255, 0, 17, 14).withOpacity(0.7));
       menus.add(menu);
      
-      menu= Menu(nombre: 'Pedidos', assetV: 'assets/pedidos.png', color: Colors.white.withOpacity(0.7));
+      menu= Menu(nombre: 'Pedidos', assetV: 'assets/pedidos.png', color: const Color.fromARGB(255, 39, 4, 4).withOpacity(0.7));
       menus.add(menu);
 
-       menu= Menu(nombre: 'Orden', assetV: 'assets/Op.png', color: const Color.fromARGB(255, 203, 209, 212).withOpacity(0.7));
-      menus.add(menu);
+      //  menu= Menu(nombre: 'Orden', assetV: 'assets/Op.png', color: const Color.fromARGB(255, 4, 46, 66).withOpacity(0.7));
+      // menus.add(menu);
       
-      menu = Menu(nombre: 'Consultar Producto', assetV: 'assets/iconNuevo.png', color: Colors.white.withOpacity(0.7));
+      menu = Menu(nombre: 'Consultar Producto', assetV: 'assets/iconNuevo.png', color: const Color.fromARGB(255, 46, 3, 39).withOpacity(0.7));
       menus.add(menu);
 
-      menu= Menu(nombre: 'Inventario', assetV: 'assets/rollos1.png', color: const Color.fromARGB(255, 143, 161, 189).withOpacity(0.7));
+      menu= Menu(nombre: 'Inventario', assetV: 'assets/rollos1.png', color: const Color.fromARGB(255, 2, 28, 70).withOpacity(0.7));
         menus.add(menu);
 
-      menu= Menu(nombre: 'Cerrar Sesion', assetV: 'assets/Salir.png', color: const Color.fromARGB(255, 143, 161, 189).withOpacity(0.7));
+      menu= Menu(nombre: 'Cerrar Sesion', assetV: 'assets/Salir.png', color: const Color.fromARGB(255, 2, 11, 26).withOpacity(0.7));
       menus.add(menu);
      
   }

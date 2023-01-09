@@ -64,8 +64,11 @@ class _PedidosScreenState extends State<PedidosScreen> {
           shape: const CircularNotchedRectangle(),
           child: IconTheme(
            data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-           child: SizedBox(
+           child: Container(
             height: 50,
+            decoration: const BoxDecoration(
+              gradient: kGradientHome
+            ),
              child: Row(
                mainAxisSize: MainAxisSize.max,
                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -220,7 +223,7 @@ class _PedidosScreenState extends State<PedidosScreen> {
                                 color: Colors.white,
                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(15) , bottomLeft: Radius.circular(15))
                               ),
-                              child: const Image(image: AssetImage('assets/telas.png'),)
+                              child: const Image(image: AssetImage('assets/rollostela.png'),)
                                       
                             ),
                           ),

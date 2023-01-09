@@ -33,9 +33,9 @@ class Compra {
   Compra.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     facturaNumero = json['facturaNumero'];
-    fechafactura = json['fechafactura'];
-    fechafacturarecepcion = json['fechafacturarecepcion'];
-    fechavencimiento = json['fechavencimiento'];
+    fechafactura = json['fechaFactura'];
+    fechafacturarecepcion = json['fecharecepcion'];
+    fechavencimiento = json['fechaVencimiento'];
     subtotal = json['subtotal'];
     iva = json['iva'];
     total = json['total'];
