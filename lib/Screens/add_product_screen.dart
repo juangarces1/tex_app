@@ -49,7 +49,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     return SafeArea(
       
       child: Scaffold(
-        backgroundColor: kColorFondoOscuro,
+        backgroundColor: kContrastColor,
         appBar: PreferredSize(
               preferredSize: Size.fromHeight(AppBar().preferredSize.height),
               child:  CustomAppBarScan(              
@@ -61,7 +61,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         body:  Stack(
           children: [
             Container(
-              color: kContrastColorMedium,
+              color: kContrastColor,
               child: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
@@ -69,7 +69,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                      InkWell(
                        onTap: scanBarCode,
                        child: Padding(
-                         padding: const EdgeInsets.only(left: 45, right: 45, top: 10, bottom: 10),
+                         padding: const EdgeInsets.only(left: 45, right: 45, top: 35, bottom: 10),
                          child: Container(
                           
                           height: 50,
@@ -85,16 +85,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                   const Icon(Icons.camera_alt_outlined, size: 30, color: Colors.white,),
                                   const SizedBox(width: 10,),
                                   Text('Escanear Codigo', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white)),
-                              ]),
-                                            
-                            // child: ElevatedButton.icon(
-                            //   style: ElevatedButton.styleFrom(
-                            //     foregroundColor: kContrastColor, gradient: kGradientTexApp,
-                            //   ),
-                            //   icon: const Icon(Icons.camera_alt_outlined),
-                            //   label: const Text('Escanear Codigo', style: TextStyle(fontSize: 30),),
-                            //   onPressed: scanBarCode, 
-                            // ),
+                              ]),                                           
+                       
                            ),
                          ),
                        ),
@@ -106,10 +98,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   rollAux.cantidad != null ?  _showInfo() : Container(),
                    _showCantidad(),
                   _showPrecio(),
-                  const SizedBox(height: 15,),
+                  const SizedBox(height: 20,),
              
                       DefaultButton(text: 'Agregar', press: _addProduct),  
-                      const SizedBox(height: 50,),
+                      const SizedBox(height: 20,),
                 
                      
                   ],
@@ -233,7 +225,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
           hintText: 'Ingresa el codigo...',
           labelText: 'Codigo',
           errorText: codigoShowError ? codigoError : null,
-          suffixIcon: IconButton(iconSize: 40, onPressed:  goGetProduct, icon: const Icon(Icons.search_sharp, color: Color.fromARGB(255, 35, 145, 39),),)
+          suffixIcon: IconButton(
+            iconSize: 40,
+             onPressed: goGetProduct,
+              icon: const Icon(
+                Icons.search_sharp, 
+                color: Color.fromARGB(255, 11, 31, 208),),)
          
         ),
     
@@ -364,17 +361,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   Future scanBarCode() async {
-  try {
-      scanResult = await FlutterBarcodeScanner.scanBarcode(
-        "#ff6666", "Cancel", true, ScanMode.BARCODE);
-  } on PlatformException{
-    scanResult='Fallo al obtener la versin de plataforma.';
-  }
-  if(!mounted) return;
-
-  setState(() {
-   scanResult=scanResult;
-     });
+    try {
+        scanResult = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
+    } on PlatformException{
+      scanResult='Fallo al obtener la versin de plataforma.';
+    }
+    if(!mounted) return;
+    setState(() {
+     scanResult=scanResult;
+    });
     _getRoll();
   }
 

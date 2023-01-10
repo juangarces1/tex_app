@@ -72,7 +72,7 @@ List<Menu> menus = [];
     return Container(  
        decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/menuFondo2.png"),
+                image: AssetImage("assets/fondoApp4.jpg"),
                 fit: BoxFit.cover,
               ),),    
       padding: const EdgeInsets.all(10),

@@ -17,7 +17,7 @@ class LoaderComponent extends StatelessWidget {
           width: 210,
           height: 150,
           decoration: BoxDecoration(
-            color:  kPrimaryColor,
+            gradient: kGradientHome,
             borderRadius: BorderRadius.circular(10),
             border:  Border.all(color: const Color.fromARGB(255, 5, 44, 25)),
           ),

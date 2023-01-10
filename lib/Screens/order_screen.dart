@@ -376,7 +376,7 @@ class _OrderScreenState extends State<OrderScreen> {
           hintText: 'Ingresa el precio...',
           labelText: 'Precio',
           errorText: precioShowError ? precioError : null,
-          suffixIcon: const Icon(Icons.money),
+          suffixIcon:  const Icon(Icons.money),
          
         ),
     

@@ -289,7 +289,7 @@ class _InventarioScreenState extends State<InventarioScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   child: Column(children: [
                     ComboProducts(onChanged: changeProduct, backgroundColor: kContrastColor, products: products, titulo: 'Productos'),
-                    DefaultButton(text: ' X Producto', press: () => getByProduct(),),
+                    DefaultButton(text: 'Filtrar', press: () => getByProduct(),),
                     const SizedBox(height: 20,),
                   ]),
               ),
@@ -306,7 +306,7 @@ class _InventarioScreenState extends State<InventarioScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   child: Column(children: [
                      ComboCategorias(onChanged: changeCategoria, backgroundColor: kContrastColor, categories: categories, titulo: 'Categorias'),
-                     DefaultButton(text: 'X Categoria', press: () => getByCategoria(),),
+                     DefaultButton(text: 'Filtrar', press: () => getByCategoria(),),
                     const SizedBox(height: 20,),
                   ]),
               ),

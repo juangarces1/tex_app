@@ -7,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:tex_app/Components/custom_appbar_scan.dart';
-import 'package:tex_app/Components/loader_component.dart';
 import 'package:tex_app/Components/text_derecha.dart';
 import 'package:tex_app/Components/text_encabezado.dart';
 import 'package:tex_app/Helpers/api_helper.dart';
@@ -42,7 +41,7 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(      
         appBar:  PreferredSize(
               preferredSize: Size.fromHeight(AppBar().preferredSize.height),
               child:  CustomAppBarScan(              
@@ -53,7 +52,7 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
               ),
             ),
         body:  Center(
-          child: showLoader ? const LoaderComponent(text: 'Por favor espere...') : _getContent()),
+          child:  _getContent(),),
            bottomNavigationBar: BottomAppBar(
           color: kNewPedidoColor,
           shape: const CircularNotchedRectangle(),
@@ -73,7 +72,7 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
                    child: RawMaterialButton(
                       onPressed: _goAdd,
                       elevation: 2.0,
-                      fillColor: const Color.fromARGB(255, 129, 7, 82),
+                      fillColor: const Color.fromARGB(255, 184, 13, 118),
                       padding: const EdgeInsets.all(12.0),
                       shape: const CircleBorder(),
                       child: const Icon(
@@ -245,7 +244,7 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
               color: Colors.white,
                shadowColor: Colors.blueGrey,
                 elevation: 8,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
               child: Padding              (
                 padding: const EdgeInsets.symmetric(vertical: 0),
                 child: Dismissible(            

@@ -30,7 +30,7 @@ class _CustomAppBarScanState extends State<CustomAppBarScan> {
      
     
         decoration:  const BoxDecoration(
-          gradient: kGradientAppBarHome,
+          gradient: kGradientHome,
                 ),
       child: Padding(
         padding:
