@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tex_app/Helpers/api_helper.dart';
 import 'package:tex_app/Models/color.dart';
 import 'package:tex_app/Models/product.dart';
@@ -483,34 +484,39 @@ Widget _showDescripcion() {
       _showLoader = false;
     });
 
-    if (!response.isSuccess) {
-      var decodedJson = jsonDecode(response.message);
-      Product product=Product.fromJson(decodedJson);
+   
 
-      await showAlertDialog(
-        context: context,
-        title: 'Error', 
-        message: 'El producto ${product.descripcion} ${product.color}\n Ya Existe',
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );    
+    if (!response.isSuccess) {
+     var decodedJson = jsonDecode(response.message);
+     Product product=Product.fromJson(decodedJson);
+     await  Fluttertoast.showToast(
+          msg: 'El producto ${product.descripcion} ${product.color}\n Ya Existe',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
       return;
-    }     
+    }    
               
 
       setState(() {
        products.clear();
       });
       
-    showAlertDialog(
-        context: context,
-        title: 'Ok', 
-        message: 'Producto(s) Creado(s)\nCorrecatemente',
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      ); 
+   
+
+       await  Fluttertoast.showToast(
+          msg: 'Producto(s) Creado(s)\nCorrecatemente',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: const Color.fromARGB(255, 19, 175, 45),
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
 
   }
 
@@ -547,17 +553,18 @@ Widget _showDescripcion() {
       _showLoader = false;
     });
 
-    if(!response.isSuccess){
-      await showAlertDialog(
-        context: context,
-        title: 'Error',
-        message: response.message,
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]
-      );
-      return;
-    }
+    if (!response.isSuccess) {
+       await  Fluttertoast.showToast(
+          msg: 'Error: ${response.message}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
+      return;      
+    }    
     setState(() {
      
         colors=response.result;
@@ -577,17 +584,18 @@ Widget _showDescripcion() {
       _showLoader = false;
     });
 
-    if(!response.isSuccess){
-      await showAlertDialog(
-        context: context,
-        title: 'Error',
-        message: response.message,
-        actions: <AlertDialogAction>[
-          const AlertDialogAction(key: null, label: 'Aceptar'),
-          ]
-      );
-      return;
-    }
+    if (!response.isSuccess) {
+       await  Fluttertoast.showToast(
+          msg: 'Error: ${response.message}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
+      return;      
+    }    
     setState(() {
      
         categories=response.result;
@@ -746,4 +754,6 @@ Widget _showDescripcion() {
   }
 
 }
+
+
 

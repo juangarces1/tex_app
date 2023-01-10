@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:tex_app/Components/loader_component.dart';
 import 'package:tex_app/Helpers/api_helper.dart';
@@ -239,15 +240,16 @@ class _OrderScreenState extends State<OrderScreen> {
     });
   
      if (!response.isSuccess) {
-      await showAlertDialog(
-        context: context,
-        title: 'Error', 
-        message: response.message,
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );    
-      return;
+       await  Fluttertoast.showToast(
+          msg: 'Error: ${response.message}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
+      return;      
     }    
 
     setState(() {
@@ -663,17 +665,19 @@ class _OrderScreenState extends State<OrderScreen> {
         showLoader=false;
     });
 
-    if (!response.isSuccess) {
-      await showAlertDialog(
-        context: context,
-        title: 'Error', 
-        message: response.message,
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );    
+     if (!response.isSuccess) {
+       await  Fluttertoast.showToast(
+          msg: 'Error: ${response.message}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
       return;
-    }    
+      
+    }   
 
     setState(() {
       rollAux= response.result;
@@ -712,17 +716,18 @@ class _OrderScreenState extends State<OrderScreen> {
       showLoader = false;
     });
 
-    if (!response.isSuccess) {
-      await showAlertDialog(
-        context: context,
-        title: 'Error', 
-        message: response.message,
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );    
-      return;
-    }     
+     if (!response.isSuccess) {
+       await  Fluttertoast.showToast(
+          msg: 'Error: ${response.message}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
+      return;      
+    }    
               
 
       setState(() {
@@ -730,14 +735,18 @@ class _OrderScreenState extends State<OrderScreen> {
        
       });
       
-    showAlertDialog(
-        context: context,
-        title: 'Ok', 
-        message: 'Orden Guardada Correcatemente',
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      ); 
+   
+
+       await  Fluttertoast.showToast(
+          msg: 'Orden Guardada Correcatemente',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: const Color.fromARGB(255, 13, 192, 37),
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
+      return;
 
   }
 }

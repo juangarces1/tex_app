@@ -3,6 +3,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:tex_app/Components/custom_appbar_scan.dart';
@@ -148,29 +149,36 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
     });
 
     if (!response.isSuccess) {
-      await showAlertDialog(
-        context: context,
-        title: 'Error', 
-        message: response.message,
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );    
+     await  Fluttertoast.showToast(
+          msg: 'Error: ${response.message}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
       return;
     }    
 
     setState(() {
       widget.orden.detalles.clear();       
     });
+
+    
       
-    showAlertDialog(
-        context: context,
-        title: 'Ok', 
-        message: 'Orden Guardada Correcatemente',
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      ); 
+   
+
+      await  Fluttertoast.showToast(
+          msg: 'Orden Guardada Correcatemente',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: const Color.fromARGB(255, 14, 131, 29),
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
+      return;
   }
 
   Widget _getContent() {

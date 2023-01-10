@@ -338,14 +338,15 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
     });
 
     if (!response.isSuccess) {
-      await showAlertDialog(
-        context: context,
-        title: 'Error', 
-        message: response.message,
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );    
+      await  Fluttertoast.showToast(
+          msg: 'Error: ${response.message}',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
       return;
     }     
               
@@ -355,14 +356,16 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
        
       });
       
-    showAlertDialog(
-        context: context,
-        title: 'Ok', 
-        message: 'Orden Guardada Correcatemente',
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      ); 
+   await  Fluttertoast.showToast(
+          msg: 'Oden Creada Correctamente',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: const Color.fromARGB(255, 5, 156, 17),
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
+      return;
 
   }
 
