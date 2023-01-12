@@ -35,9 +35,7 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
   bool showLoader = false;
   String _precio='';
   String _cantidad='';
- 
- 
- 
+   
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -107,14 +105,15 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
 
   void  goSave()  async {
       if(widget.orden.detalles.isEmpty){
-       await showAlertDialog(
-        context: context,
-        title: 'Error', 
-        message: 'Agregue un Producto.',
-        actions: <AlertDialogAction>[
-            const AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );    
+       await  Fluttertoast.showToast(
+          msg: 'No hay productos para guardar',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: const Color.fromARGB(255, 211, 16, 25),
+          textColor: Colors.white,
+          fontSize: 16.0
+      );     
       return;
     }    
      setState(() {
@@ -148,17 +147,9 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
     });
 
     if (!response.isSuccess) {
-     await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     showErrorFromDialog(response.message);
       return;
-    }    
+    }   
 
     setState(() {
       widget.orden.detalles.clear();       
@@ -445,5 +436,16 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
          Navigator.of(context).pop();
        
      }
+
+  void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
+  }   
  
 }

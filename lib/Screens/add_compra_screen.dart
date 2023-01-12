@@ -1,5 +1,6 @@
 
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -147,7 +148,7 @@ class _AddCompraScreenState extends State<AddCompraScreen> {
               
             ), 
           ),
-          showLoader ? const LoaderComponent(text: 'Procesando...',): Container(),
+          showLoader ? const LoaderComponent(text: 'Cargando',): Container(),
         ],
       ),
     );
@@ -496,17 +497,9 @@ class _AddCompraScreenState extends State<AddCompraScreen> {
     });
 
     if (!response.isSuccess) {
-     await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     showErrorFromDialog(response.message);
       return;
-    }    
+    }
    
       setState(() {
         suppliers = response.result;       
@@ -531,9 +524,6 @@ class _AddCompraScreenState extends State<AddCompraScreen> {
     } else {
       subTotalShowError = false;
     }
- 
-
-
     
 
     setState(() { });
@@ -610,15 +600,7 @@ class _AddCompraScreenState extends State<AddCompraScreen> {
     });
 
     if (!response.isSuccess) {
-      await Fluttertoast.showToast(
-        msg: "Error Al Grabar",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 2,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );  
+     showErrorFromDialog(response.message);
       return;
     }
 
@@ -666,4 +648,15 @@ class _AddCompraScreenState extends State<AddCompraScreen> {
      widget.compra.supplier=selectedItem;
     });
   }
+
+  void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
+    }
 }

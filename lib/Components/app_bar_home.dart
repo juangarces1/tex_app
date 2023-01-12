@@ -17,7 +17,7 @@ class AppBarHome extends StatelessWidget {
         gradient: kGradientHome,
       
       ),
-      child: Center(child: Text('TexApp' , style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white))),
+      child: Center(child: Text('TexAPP' , style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white))),
     );
   }
 }

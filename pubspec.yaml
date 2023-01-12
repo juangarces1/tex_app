@@ -50,7 +50,8 @@ dependencies:
   flutter_launcher_icons: ^0.11.0
   horizontal_data_table: ^4.1.4
   find_dropdown: ^1.0.0
-
+  ping_discover_network_forked: ^0.0.1
+  
 flutter_icons:
   android: "launcher_icon"
   ios: true

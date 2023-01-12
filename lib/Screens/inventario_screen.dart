@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -107,16 +108,8 @@ class _InventarioScreenState extends State<InventarioScreen> {
       showLoader = false;
     });
 
-    if (!response.isSuccess) {
-      await Fluttertoast.showToast(
-          msg: "No Hay Productos",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: const Color.fromARGB(255, 48, 168, 84),
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     if (!response.isSuccess) {
+     showErrorFromDialog(response.message);
       return;
     } 
    
@@ -247,18 +240,10 @@ class _InventarioScreenState extends State<InventarioScreen> {
       showLoader = false;
     });
 
-    if (!response.isSuccess) {
-      await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     if (!response.isSuccess) {
+     showErrorFromDialog(response.message);
       return;
-    }
+    } 
    
       setState(() {
         products = response.result;       
@@ -367,8 +352,6 @@ class _InventarioScreenState extends State<InventarioScreen> {
      setState(() {
       showLoader = true;
     });
-    
-    
    
     Response response = await ApiHelper.getCategoies();
 
@@ -376,18 +359,11 @@ class _InventarioScreenState extends State<InventarioScreen> {
       showLoader = false;
     });
 
-    if(!response.isSuccess){
-      await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+    if (!response.isSuccess) {
+      showErrorFromDialog(response.message);
       return;
-    }
+    } 
+
     setState(() {     
         categories=response.result;
     });
@@ -422,5 +398,16 @@ class _InventarioScreenState extends State<InventarioScreen> {
 
  void changeCategoria(selectItem) {
     category=selectItem;
+  }
+
+void showErrorFromDialog(String msg) async {
+await showAlertDialog(
+    context: context,
+    title: 'Error', 
+    message: msg,
+    actions: <AlertDialogAction>[
+        const AlertDialogAction(key: null, label: 'Aceptar'),
+    ]
+  );       
   }
 }

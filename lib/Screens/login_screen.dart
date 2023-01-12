@@ -66,8 +66,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
-
   Widget _showLogo() {
     return const Image(
       image: AssetImage('assets/rollostela.png'),
@@ -75,8 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
       fit: BoxFit.fill,
     );
   }
-
-  
 
   Widget _showPassword() {
     return Container(
@@ -159,9 +155,6 @@ void _storeUser(String body) async {
     setState(() {
       _showLoader = true;
     });
-
-   
-
      
 
     var url = Uri.parse('${Constans.apiUrl}/api/Kilos/LogIn/$_password');

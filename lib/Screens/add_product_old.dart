@@ -1,5 +1,6 @@
 
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -276,15 +277,7 @@ class _AddOldProductState extends State<AddOldProduct> {
     });
 
     if (!response.isSuccess) {
-      await Fluttertoast.showToast(
-          msg: "El Producto no existe",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     showErrorFromDialog(response.message);
       return;
     }    
 
@@ -292,6 +285,17 @@ class _AddOldProductState extends State<AddOldProduct> {
       codigoProduct = response.result;
       defProduct.descripcion=null;
     });
+  }
+
+   void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
   }
 
   Widget _showCantidad() {
@@ -325,17 +329,10 @@ class _AddOldProductState extends State<AddOldProduct> {
     });
 
     if (!response.isSuccess) {
-      await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     showErrorFromDialog(response.message);
       return;
-    }   
+    }    
+
     setState(() {
       products = response.result;       
     });
@@ -365,17 +362,9 @@ class _AddOldProductState extends State<AddOldProduct> {
     });
 
     if (!response.isSuccess) {
-      await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     showErrorFromDialog(response.message);
       return;
-    }
+    }   
    
     setState(() {
       cProducts = response.result;       

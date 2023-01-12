@@ -138,17 +138,9 @@ class _EditOrderScreenState extends State<EditOrderScreen> {
     });
 
     if (!response.isSuccess) {
-      await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     showErrorFromDialog(response.message);
       return;
-    }    
+    }  
 
     setState(() {
       widget.orden.detalles.clear();       
@@ -427,4 +419,16 @@ class _EditOrderScreenState extends State<EditOrderScreen> {
     });
       Navigator.of(context).pop();    
   }
+ 
+  void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
+  }
+
 }

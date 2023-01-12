@@ -1,5 +1,6 @@
 
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -8,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tex_app/Components/custom_appbar_scan.dart';
 import 'package:tex_app/Components/default_button.dart';
 import 'package:tex_app/Components/loader_component.dart';
+import 'package:tex_app/Components/scan_bar_code.dart';
 import 'package:tex_app/Components/text_derecha.dart';
 import 'package:tex_app/Components/text_encabezado.dart';
 import 'package:tex_app/Helpers/api_helper.dart';
@@ -66,31 +68,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children:  [ 
-                     InkWell(
-                       onTap: scanBarCode,
-                       child: Padding(
-                         padding: const EdgeInsets.only(left: 45, right: 45, top: 35, bottom: 10),
-                         child: Container(
-                          
-                          height: 50,
-                          decoration:  const BoxDecoration(
-                            borderRadius:  BorderRadius.all(Radius.circular(10)),
-                            gradient: kGradientTexApp,
-                           
-                          ),
-                           child: Center(
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children:  [
-                                  const Icon(Icons.camera_alt_outlined, size: 30, color: Colors.white,),
-                                  const SizedBox(width: 10,),
-                                  Text('Escanear Codigo', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white)),
-                              ]),                                           
-                       
-                           ),
-                         ),
-                       ),
-                     ),                
+                     ScanBarCode(press: scanBarCode,),      
                     Container(                    
                       color: kContrastColorMedium,
                       child: _showCodigo()),     
@@ -158,7 +136,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           msg: "Por favor revise los valores\nCantidad y Precio.",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
+          timeInSecForIosWeb: 5,
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0
@@ -217,8 +195,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       child: TextField(
         controller: codigoController,
         keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          
+        decoration: InputDecoration(          
           filled: true,
           hoverColor: const Color.fromARGB(255, 19, 47, 70),
           border:   const OutlineInputBorder(borderSide: BorderSide(color: kPrimaryColor, width: 5)),
@@ -230,7 +207,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
              onPressed: goGetProduct,
               icon: const Icon(
                 Icons.search_sharp, 
-                color: Color.fromARGB(255, 11, 31, 208),),)
+                color: Color(0xffc94216)),)
          
         ),
     
@@ -395,18 +372,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
         showLoader=false;
     });
   
-     if (!response.isSuccess) {
-     await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+      if (!response.isSuccess) {
+     showErrorFromDialog(response.message);
       return;
-    }    
+    }   
 
     setState(() {
       rollAux= response.result;
@@ -472,5 +441,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
     
   }
 
+ void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
+  }
 
 }

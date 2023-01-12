@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -329,17 +330,9 @@ class _CompasScreenState extends State<CompasScreen> {
     });
   
     if (!response.isSuccess) {
-      await Fluttertoast.showToast(
-          msg: 'La compra # ${codigoController.text.toString()}\nNo existe',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     showErrorFromDialog(response.message);
       return;
-    }    
+    }   
      
     setState(() {
       compras = response.result;
@@ -373,17 +366,9 @@ class _CompasScreenState extends State<CompasScreen> {
     });
 
     if (!response.isSuccess) {
-       await Fluttertoast.showToast(
-          msg: 'Esta fecha no arroja resultados',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     showErrorFromDialog(response.message);
       return;
-    }     
+    }   
      
      var decodedJson = jsonDecode(response.result);     
        setState(() {
@@ -431,5 +416,14 @@ class _CompasScreenState extends State<CompasScreen> {
     );
   }
 
-
+  void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
+  }
 } 

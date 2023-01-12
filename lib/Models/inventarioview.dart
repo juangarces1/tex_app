@@ -37,7 +37,17 @@ class InventarioView {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};  
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['categoria'] = categoria;
+    data['producto'] = producto;
+    data['color'] = color;
+    data['medida'] = medida;
+    data['inventario'] = inventario;
+    data['invAlmacen'] = invAlmacen;
+    data['invBodega'] = invBodega;
+    data['totalRollos'] = totalRollos;
+    data['valor'] = valor;
+    
     return data;
   }
 }

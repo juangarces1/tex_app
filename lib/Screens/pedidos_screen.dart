@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -107,17 +108,9 @@ class _PedidosScreenState extends State<PedidosScreen> {
     });
 
     if (!response.isSuccess) {
-       await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
-      return;      
-    }     
+     showErrorFromDialog(response.message);
+      return;
+    }   
 
     setState(() {
       pedidos= response.result;
@@ -319,21 +312,16 @@ class _PedidosScreenState extends State<PedidosScreen> {
     setState(() {
       showLoader = false;
     });
+
     if (!response.isSuccess) {
-      await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
-     setState(() {
+     showErrorFromDialog(response.message);
+      setState(() {
        pedidos= pedidos;
       }); 
       return;
-    }    
+    }  
+
+  
 
     setState(() {
       pedidos.remove(pedido);
@@ -347,5 +335,16 @@ class _PedidosScreenState extends State<PedidosScreen> {
       MaterialPageRoute(
         builder: (context) => HomeScreen(user: widget.user,)
     )); 
+  }
+
+   void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
   }
 }

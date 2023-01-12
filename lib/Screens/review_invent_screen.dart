@@ -1,15 +1,19 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:tex_app/Components/card_product.dart';
 import 'package:tex_app/Components/loader_component.dart';
 import 'package:tex_app/Components/text_derecha.dart';
 import 'package:tex_app/Components/text_encabezado.dart';
 import 'package:tex_app/Helpers/api_helper.dart';
+import 'package:tex_app/Models/invent_detail.dart';
 import 'package:tex_app/Models/invent_review.dart';
+import 'package:tex_app/Models/invert.dart';
 import 'package:tex_app/Models/product.dart';
 import 'package:tex_app/Models/response.dart';
 import 'package:tex_app/Models/roll.dart';
@@ -59,7 +63,7 @@ class _ReviewInventScreenState extends State<ReviewInventScreen> {
         },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-         backgroundColor: kColorFondoOscuro,
+         backgroundColor: kContrastColorMedium,
         appBar: AppBar(
            backgroundColor:  const Color.fromARGB(255, 8, 44, 107),
           title:   Text(
@@ -302,8 +306,82 @@ class _ReviewInventScreenState extends State<ReviewInventScreen> {
    
 }
 
-  goSave() {
-      
+  Future goSave() async {
+     if(inventReview.products.isEmpty){
+      await Fluttertoast.showToast(
+        msg: "No hay productos para guardar",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+      );    
+      return;
+     } 
+
+    setState(() {
+      showLoader=true;
+    });
+
+   DateFormat formatter = DateFormat('yyyy-MM-dd');
+   String date1 = formatter.format(DateTime.now());
+
+  Invent invet = Invent(
+    id: 0,
+    total: 0,
+    fecha: date1,
+    rollos: 0,
+    metros: 0,
+    kilos: 0,
+    items: [],
+   
+  );
+    
+   for (var element in inventReview.products) {  
+      InventDetail item= InventDetail(
+        id: 0,
+        categoria: element.category!.name,
+        producto: element.descripcion,
+        cantidad: element.stock,
+        medida: element.rolls!.first.medida,
+        color: element.color,
+        precio: element.rolls!.first.precio,
+      );
+      invet.items!.add(item);
+    
+   }
+   invet.rollos= invet.items!.length;
+
+    Map<String, dynamic> request = invet.toJson();
+
+   Response response = await ApiHelper.post(
+    'api/Kilos/PostInventario/',
+     request
+   );
+
+    setState(() {
+        showLoader=false;
+      });
+  
+      if (!response.isSuccess) {
+        showErrorFromDialog(response.message);
+        return; 
+      } 
+      await Fluttertoast.showToast(
+          msg: "Inventario guardado",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+        );    
+        setState(() {
+          inventReview.products.clear();
+          rollos.clear();
+        });
+          
   }
   
   showInventario() {
@@ -394,6 +472,20 @@ class _ReviewInventScreenState extends State<ReviewInventScreen> {
    }); 
 
   }
+
+ void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
+    }
+
+
 }
+
 
  

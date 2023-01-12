@@ -233,20 +233,7 @@ List<Menu> menus = [];
   }
   
   void _getMenus() {
-    if(widget.user.isAdmin==true){
-       Menu  menu= Menu(nombre: 'Crear Producto', assetV: 'assets/NewFondo.png', color: const Color.fromARGB(255, 1, 5, 17).withOpacity(0.7));
-        menus.add(menu);
-        menu= Menu(nombre: 'Agregar Rollo', assetV: 'assets/iconNuevo.png', color: const Color.fromARGB(255, 4, 37, 88).withOpacity(0.7));
-        menus.add(menu);
-          menu= Menu(nombre: 'Agregar Compra', assetV: 'assets/Factura.png', color: const Color.fromARGB(255, 6, 5, 75).withOpacity(0.7));
-        menus.add(menu);
-           menu= Menu(nombre: 'Compras', assetV: 'assets/Factura.png', color: const Color.fromARGB(255, 6, 5, 75).withOpacity(0.7));
-        menus.add(menu);
-        menu= Menu(nombre: 'Entrada Almacen', assetV: 'assets/Almacen.png', color: const Color.fromARGB(248, 5, 51, 73).withOpacity(0.7));
-        menus.add(menu); 
-          menu= Menu(nombre: 'Revisar Inventario', assetV: 'assets/inventario.png', color: const Color.fromARGB(248, 5, 51, 73).withOpacity(0.7));
-        menus.add(menu); 
-    }
+  
  
       Menu menu= Menu(nombre: 'Nuevo Pedido', assetV: 'assets/Cart.png', color: const Color.fromARGB(255, 0, 17, 14).withOpacity(0.7));
       menus.add(menu);
@@ -263,8 +250,25 @@ List<Menu> menus = [];
       menu= Menu(nombre: 'Inventario', assetV: 'assets/rollos1.png', color: const Color.fromARGB(255, 2, 28, 70).withOpacity(0.7));
         menus.add(menu);
 
-      menu= Menu(nombre: 'Cerrar Sesion', assetV: 'assets/Salir.png', color: const Color.fromARGB(255, 2, 11, 26).withOpacity(0.7));
-      menus.add(menu);
+     
+
+      if(widget.user.isAdmin==true){
+       Menu  menu= Menu(nombre: 'Crear Producto', assetV: 'assets/NewFondo.png', color: const Color.fromARGB(255, 1, 5, 17).withOpacity(0.7));
+        menus.add(menu);
+        menu= Menu(nombre: 'Agregar Rollo', assetV: 'assets/iconNuevo.png', color: const Color.fromARGB(255, 4, 37, 88).withOpacity(0.7));
+        menus.add(menu);
+          menu= Menu(nombre: 'Agregar Compra', assetV: 'assets/Factura.png', color: const Color.fromARGB(255, 6, 5, 75).withOpacity(0.7));
+        menus.add(menu);
+           menu= Menu(nombre: 'Compras', assetV: 'assets/Factura.png', color: const Color.fromARGB(255, 6, 5, 75).withOpacity(0.7));
+        menus.add(menu);
+        menu= Menu(nombre: 'Entrada Almacen', assetV: 'assets/Almacen.png', color: const Color.fromARGB(248, 5, 51, 73).withOpacity(0.7));
+        menus.add(menu); 
+          menu= Menu(nombre: 'Revisar Inventario', assetV: 'assets/inventario.png', color: const Color.fromARGB(248, 5, 51, 73).withOpacity(0.7));
+        menus.add(menu); 
+       }
+
+        menu= Menu(nombre: 'Cerrar Sesion', assetV: 'assets/Salir.png', color: const Color.fromARGB(255, 2, 11, 26).withOpacity(0.7));
+       menus.add(menu);
      
   }
   

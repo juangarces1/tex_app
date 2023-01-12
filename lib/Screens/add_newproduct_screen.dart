@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
@@ -486,20 +485,10 @@ Widget _showDescripcion() {
 
    
 
-    if (!response.isSuccess) {
-     var decodedJson = jsonDecode(response.message);
-     Product product=Product.fromJson(decodedJson);
-     await  Fluttertoast.showToast(
-          msg: 'El producto ${product.descripcion} ${product.color}\n Ya Existe',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
-      return;
-    }    
+     if (!response.isSuccess) {
+       showErrorFromDialog(response.message);
+      return;      
+    }  
               
 
       setState(() {
@@ -539,7 +528,6 @@ Widget _showDescripcion() {
 
   }
 
-
  Future<void>  _getColors() async {
      setState(() {
       _showLoader = true;
@@ -553,18 +541,10 @@ Widget _showDescripcion() {
       _showLoader = false;
     });
 
-    if (!response.isSuccess) {
-       await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     if (!response.isSuccess) {
+       showErrorFromDialog(response.message);
       return;      
-    }    
+    }  
     setState(() {
      
         colors=response.result;
@@ -585,15 +565,7 @@ Widget _showDescripcion() {
     });
 
     if (!response.isSuccess) {
-       await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+       showErrorFromDialog(response.message);
       return;      
     }    
     setState(() {
@@ -751,6 +723,17 @@ Widget _showDescripcion() {
                   ),
                 )),
     );
+  }
+
+  void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
   }
 
 }

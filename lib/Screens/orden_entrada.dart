@@ -256,18 +256,10 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
         showLoader=false;
     });
   
-     if (!response.isSuccess) {
-      await Fluttertoast.showToast(
-          msg: "El Rollo no EXISTE",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+    if (!response.isSuccess) {
+      showErrorFromDialog(response.message);
       return;
-    }    
+    } 
     Roll roll = response.result; 
 
     for (var element in rollos) {
@@ -337,18 +329,10 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
       showLoader = false;
     });
 
-    if (!response.isSuccess) {
-      await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     if (!response.isSuccess) {
+     showErrorFromDialog(response.message);
       return;
-    }     
+    } 
               
 
       setState(() {
@@ -369,5 +353,14 @@ class _OrdenEntradaScreenState extends State<OrdenEntradaScreen> {
 
   }
 
-  
+  void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
+  }
 }

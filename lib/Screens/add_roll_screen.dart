@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -295,7 +296,6 @@ class _AddRollScreenState extends State<AddRollScreen> {
     );
   }
 
-
  Future<void> _getColors() async {
     if(auxProduct.descripcion==null){
       return;
@@ -321,18 +321,10 @@ class _AddRollScreenState extends State<AddRollScreen> {
       showLoader = false;
     });
 
-    if (!response.isSuccess) {
-      await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     if (!response.isSuccess) {
+     showErrorFromDialog(response.message);
       return;
-    }
+    }   
    
       setState(() {
         pColors = response.result;       
@@ -351,18 +343,10 @@ class _AddRollScreenState extends State<AddRollScreen> {
       showLoader = false;
     });
 
-    if (!response.isSuccess) {
-     await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+     if (!response.isSuccess) {
+     showErrorFromDialog(response.message);
       return;
-    }
+    }   
    
       setState(() {
         products = response.result;       
@@ -555,19 +539,10 @@ class _AddRollScreenState extends State<AddRollScreen> {
     showLoader = false;
   });
 
-  if (!response.isSuccess) {     
-
-    await  Fluttertoast.showToast(
-      msg: "Error al crear el rollo",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.TOP,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      fontSize: 16.0
-    );     
-    return;
-  }     
+   if (!response.isSuccess) {
+     showErrorFromDialog(response.message);
+      return;
+    }     
             
 
   setState(() {
@@ -672,5 +647,16 @@ class _AddRollScreenState extends State<AddRollScreen> {
       }
     ).toList(),
    );
- 
+
+   void showErrorFromDialog(String msg) async {
+    await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: msg,
+        actions: <AlertDialogAction>[
+            const AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );       
+  }
+
 }

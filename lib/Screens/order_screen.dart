@@ -240,17 +240,9 @@ class _OrderScreenState extends State<OrderScreen> {
     });
   
      if (!response.isSuccess) {
-       await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
-      return;      
-    }    
+     showErrorFromDialog(response.message);
+      return;
+    }   
 
     setState(() {
       rollAux= response.result;
@@ -665,18 +657,9 @@ class _OrderScreenState extends State<OrderScreen> {
         showLoader=false;
     });
 
-     if (!response.isSuccess) {
-       await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
+    if (!response.isSuccess) {
+     showErrorFromDialog(response.message);
       return;
-      
     }   
 
     setState(() {
@@ -701,9 +684,6 @@ class _OrderScreenState extends State<OrderScreen> {
       showLoader = true;
     });
 
-    
-  
-
    Map<String, dynamic> request = widget.orden.toJson();
 
     Response response = await ApiHelper.post(
@@ -717,17 +697,9 @@ class _OrderScreenState extends State<OrderScreen> {
     });
 
      if (!response.isSuccess) {
-       await  Fluttertoast.showToast(
-          msg: 'Error: ${response.message}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );     
-      return;      
-    }    
+     showErrorFromDialog(response.message);
+      return;
+    }   
               
 
       setState(() {
@@ -748,5 +720,16 @@ class _OrderScreenState extends State<OrderScreen> {
       );     
       return;
 
+  }
+
+  void showErrorFromDialog(String msg) async {
+  await showAlertDialog(
+      context: context,
+      title: 'Error', 
+      message: msg,
+      actions: <AlertDialogAction>[
+          const AlertDialogAction(key: null, label: 'Aceptar'),
+      ]
+    );       
   }
 }

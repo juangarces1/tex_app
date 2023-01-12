@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:tex_app/Components/card_movs.dart';
 import 'package:tex_app/Components/card_roll.dart';
@@ -10,6 +11,7 @@ import 'package:tex_app/Components/combo_colores.dart';
 import 'package:tex_app/Components/combo_products.dart';
 import 'package:tex_app/Components/default_button.dart';
 import 'package:tex_app/Components/loader_component.dart';
+import 'package:tex_app/Components/scan_bar_code.dart';
 import 'package:tex_app/Components/text_derecha.dart';
 import 'package:tex_app/Components/text_encabezado.dart';
 import 'package:tex_app/Helpers/api_helper.dart';
@@ -99,16 +101,10 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.black.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(14),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children:   const [
-                            Text('Consulta Producto', style: TextStyle(color: Colors.white, fontSize: 20),),
-                            SizedBox(width: 5),                         
-                          ],
-                        ),
+                        child: Text('Consulta Producto', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                       ),
                        !swicht ? IconButton(onPressed: () => refrescar(), icon: const Icon(Icons.filter_alt, size: 20, color: Colors.white,),)  : const SizedBox(width: 50,)
                     ],
@@ -130,22 +126,7 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children:  [ 
-                     Container(
-                      color: kColorAlternativo,
-                       child: Padding(
-                         padding:  const EdgeInsets.only(top: 20.0, bottom: 20),
-                         child: Center(
-                          child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: kContrastColor, backgroundColor: kPrimaryColor,
-                            ),
-                            icon: const Icon(Icons.camera_alt_outlined),
-                            label: const Text('Escanear Codigo Rollo', style: TextStyle(fontSize: 20),),
-                            onPressed: scanBarCode, 
-                          ),
-                         ),
-                       ),
-                     ),                
+                     ScanBarCode(press: scanBarCode,),            
                     Container(                    
                       color: kColorAlternativo,
                       child: _showCodigo()),  
@@ -645,6 +626,7 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
     setState(() {
       product = response.result;
       codigoController.text=code.toString();
+      swicht = false;
     });
   }
 
