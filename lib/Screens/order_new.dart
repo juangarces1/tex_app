@@ -41,7 +41,7 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
     return SafeArea(
       child: Scaffold(      
         appBar:  PreferredSize(
-              preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+              preferredSize: const Size.fromHeight(65),
               child:  CustomAppBarScan(              
                 press: () => goMenu(),
                  titulo:  Text(widget.isOld ? 'Nueva Orden' : 'Nuevo Pedido',

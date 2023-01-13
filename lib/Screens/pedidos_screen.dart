@@ -48,7 +48,7 @@ class _PedidosScreenState extends State<PedidosScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-                preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+                preferredSize: const Size.fromHeight(65),
                 child:  CustomAppBarScan(              
                   press: () => goMenu(),
                    titulo:  Text('Listado de Ordenes',

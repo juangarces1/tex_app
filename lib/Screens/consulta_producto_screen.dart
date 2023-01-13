@@ -64,22 +64,23 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
       child: Scaffold(
         backgroundColor: kColorAlternativo,
         appBar: PreferredSize(
-              preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+              preferredSize: const Size.fromHeight(70),
               child:  Container(
+                height: 70,
                 decoration:  const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/ImgAddPro.png'),
                           fit: BoxFit.cover,
                         ),),
                 child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20), vertical: getProportionateScreenHeight(10)),
+                  padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: getProportionateScreenHeight(40),
-                        width: getProportionateScreenWidth(40),
+                        height: getProportionateScreenHeight(35),
+                        width: getProportionateScreenWidth(35),
                         child: TextButton(
                           style: TextButton.styleFrom(
                             foregroundColor: kPrimaryColor, shape: RoundedRectangleBorder(
@@ -97,7 +98,7 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 10,),
+                    
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
                         decoration: BoxDecoration(
@@ -106,7 +107,12 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
                         ),
                         child: Text('Consulta Producto', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                       ),
-                       !swicht ? IconButton(onPressed: () => refrescar(), icon: const Icon(Icons.filter_alt, size: 20, color: Colors.white,),)  : const SizedBox(width: 50,)
+                       IconButton(             
+                        icon: swicht == false  ? const Icon(Icons.switch_right, color: Colors.white, size: 35,): const Icon(Icons.switch_left, color: Colors.white, size: 35,),
+                        onPressed: () => setState(() {
+                          swicht=!swicht;
+                        }),
+                                           ),
                     ],
                   ),
                 ),
