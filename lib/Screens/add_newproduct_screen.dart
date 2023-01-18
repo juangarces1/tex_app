@@ -531,10 +531,8 @@ Widget _showDescripcion() {
  Future<void>  _getColors() async {
      setState(() {
       _showLoader = true;
-    });
+    }); 
     
-    
-   
     Response response = await ApiHelper.getColors();
 
     setState(() {

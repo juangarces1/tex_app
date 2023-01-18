@@ -251,6 +251,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
     setState(() {
       rollAux= response.result;
+      precioController.text=rollAux.product!.venta!;
     });
   }
 

@@ -18,6 +18,7 @@ class Product {
   double? ultimoPrecio;
   String? ultimaVenta;
   String? promVenta;
+  String? venta;
 
   Product(
       {this.id,
@@ -35,7 +36,8 @@ class Product {
       this.ultimoPrecio,
       this.precioPromedio,
       this.ultimaVenta,
-      this.promVenta
+      this.promVenta,
+      this.venta,
       });
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -62,6 +64,7 @@ class Product {
     precioPromedio = json['precioPromedio'].toDouble();
     ultimaVenta = json['ultimaVenta'];
     promVenta = json['promVenta'];
+    venta = json['venta'];
     
   }
 

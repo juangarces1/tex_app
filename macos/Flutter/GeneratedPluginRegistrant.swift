@@ -8,7 +8,7 @@ import Foundation
 import dynamic_color
 import macos_ui
 import path_provider_macos
-import shared_preferences_macos
+import shared_preferences_foundation
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   DynamicColorPlugin.register(with: registry.registrar(forPlugin: "DynamicColorPlugin"))

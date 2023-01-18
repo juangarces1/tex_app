@@ -241,8 +241,8 @@ List<Menu> menus = [];
       menu= Menu(nombre: 'Pedidos', assetV: 'assets/pedidos.png', color: const Color.fromARGB(255, 39, 4, 4).withOpacity(0.7));
       menus.add(menu);
 
-      //  menu= Menu(nombre: 'Orden', assetV: 'assets/Op.png', color: const Color.fromARGB(255, 4, 46, 66).withOpacity(0.7));
-      // menus.add(menu);
+      menu= Menu(nombre: 'Orden', assetV: 'assets/Op.png', color: const Color.fromARGB(255, 4, 46, 66).withOpacity(0.7));
+      menus.add(menu);
       
       menu = Menu(nombre: 'Consultar Producto', assetV: 'assets/iconNuevo.png', color: const Color.fromARGB(255, 46, 3, 39).withOpacity(0.7));
       menus.add(menu);
