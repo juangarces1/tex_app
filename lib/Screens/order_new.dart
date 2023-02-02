@@ -51,12 +51,7 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
             ),
         body:  Center(
           child:  _getContent(),),
-           bottomNavigationBar: BottomAppBar(
-          color: kNewPedidoColor,
-          shape: const CircularNotchedRectangle(),
-          child: IconTheme(
-           data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-           child: Container(
+           bottomNavigationBar: Container(
             decoration: const BoxDecoration(
               gradient: kGradientHome,
             ),
@@ -65,40 +60,37 @@ class _OrderNewScreenState extends State<OrderNewScreen> {
                mainAxisSize: MainAxisSize.max,
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Padding(
-                   padding: const EdgeInsets.only(top: 3, bottom: 3),
-                   child: RawMaterialButton(
-                      onPressed: _goAdd,
-                      elevation: 2.0,
-                      fillColor: const Color.fromARGB(255, 184, 13, 118),
-                      padding: const EdgeInsets.all(12.0),
-                      shape: const CircleBorder(),
-                      child: const Icon(
-                        Icons.add,
-                        size: 30.0,
-                      ),
-                    ),
-                 ),
-                Text(widget.orden.detalles.isNotEmpty ? 'Prod: ${widget.orden.detalles.length.toString()} -  \$${NumberFormat("###,000", "es_CO").format(widget.orden.detalles.map((item)=>item.total!).reduce((value, element) => value + element))}' : '', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white)),
+                  RawMaterialButton(
+                     onPressed: _goAdd,
+                     elevation: 2.0,
+                     fillColor: const Color.fromARGB(255, 184, 13, 118),
+                     padding: const EdgeInsets.all(8.0),
+                     shape: const CircleBorder(),
+                     child: const Icon(
+                       Icons.add,
+                       size: 35.0,
+                       color: Colors.white,
+                     ),
+                   ),
+                Text(widget.orden.detalles.isNotEmpty ? 'Prod: ${widget.orden.detalles.length.toString()} -  \$${NumberFormat("###,000", "es_CO").format(widget.orden.detalles.map((item)=>item.total!).reduce((value, element) => value + element))}' : '', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white),),
                  Padding(
                    padding: const EdgeInsets.only(top: 3, bottom: 3),
                    child: RawMaterialButton(
                       onPressed: goSave,
                       elevation: 2.0,
-                      fillColor: const Color.fromARGB(255, 3, 52, 158),
-                      padding: const EdgeInsets.all(12.0),
+                      fillColor: Colors.white,
+                      padding: const EdgeInsets.all(8.0),
                       shape: const CircleBorder(),
                       child: const Icon(
                         Icons.save,
-                        size: 30.0,
+                        size: 35.0,
+                        color: kBlueColorLogo,
                       ),
                     ),
                  ),
                  ],          
                ),
-           ),
-          ),
-         ),  
+           ),  
       ),
     );
   }

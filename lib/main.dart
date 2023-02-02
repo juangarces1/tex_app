@@ -36,9 +36,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
    
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
       title: 'Tex App',
-      theme: ThemeData(textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme)),
+      theme: ThemeData(
+          useMaterial3: true,
+        textTheme: GoogleFonts.oswaldTextTheme(Theme.of(context).textTheme)
+      ),
       home: _isLoading 
         ? const WaitScreen() 
         : _showLoginPage 

@@ -46,12 +46,7 @@ List<Menu> menus = [];
               child:  const AppBarHome(),                 
               ),            
         body: _getListView(),
-         bottomNavigationBar: BottomAppBar(
-        color: kColorHomeBar,
-        shape: const CircularNotchedRectangle(),
-        child: IconTheme(
-         data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-         child: Container(
+         bottomNavigationBar: Container(
           
            decoration: const BoxDecoration(    
                 
@@ -61,9 +56,7 @@ List<Menu> menus = [];
              child: Text(
                'Hola ${widget.user.fullName!}!', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
            ),
-         ),
-        ),
-       ), 
+         ), 
         ),
       );    
   }

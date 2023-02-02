@@ -20,10 +20,10 @@ class _CardRollState extends State<CardRoll> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-    padding: EdgeInsets.only(left: getProportionateScreenWidth(20), bottom: 10),
+    padding: EdgeInsets.only(left: getProportionateScreenWidth(5), bottom: 10),
     child: 
       Card(
-        color:kContrastColor,
+        color:kContrastColorMedium,
           shadowColor: kPrimaryColor,
           elevation: 8,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -36,12 +36,12 @@ class _CardRollState extends State<CardRoll> {
                 InkWell(
             onTap: () => goMovs(),
             child: Container(
-                height: 90,
-                width: 150,
-                padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                height: 65,
+                width: 65,
+                padding: EdgeInsets.all(getProportionateScreenWidth(5)),
                 decoration: BoxDecoration(
                 color: kSecondaryColor.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(5),
               ),
               child: const Image(image:  AssetImage('assets/iconNuevo.png'), fit: BoxFit.fill,),
               )

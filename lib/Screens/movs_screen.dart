@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tex_app/Components/card_descuento.dart';
+import 'package:tex_app/Components/titulos.dart';
 import 'package:tex_app/Models/roll.dart';
 import 'package:tex_app/constans.dart';
 import 'package:tex_app/sizeconfig.dart';
@@ -11,53 +12,45 @@ class MovsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(child: 
      Scaffold(
-      appBar: AppBar(title: Text('Rollo: ${roll.id}')),
+        backgroundColor: kColorAlternativo,
+      appBar: AppBar(
+        leading: const BackButton(color: Colors.white,),
+        backgroundColor: kPrimaryColor,
+        title: TitulosText(color: Colors.white, text:'Rollo: ${roll.id}' 
+        , fontSize: 20)),
         body:  Container(
         color: kColorAlternativo,
-        child: Column( 
-        children: [
-        const SizedBox(height: 10,),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),
-            child: Center(
-              child: Text(
-                "Movimientos",
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(20),
-                  color: kContrateFondoOscuro,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: SingleChildScrollView(
+          child: Column( 
+          children: [
+          const SizedBox(height: 10,),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),
+              child: const Center(
+                child: TitulosText(color: Colors.white, text: 'Movimientos', fontSize: 20),
               ),
             ),
-          ),
-        const Divider(
-          height: 40,
-          thickness: 2,
-          color: kContrastColor,
-          ), 
-          
-          SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: 
-            [
-              ...List.generate(
-              roll.descuentos!.length,
-                (index) {      
-                    return CardDescuento(descuento: roll.descuentos![index]);          
-                },
+        
+             SizedBox(height: getProportionateScreenWidth(10)),
+            Column(
+              children: 
+              [
+                ...List.generate(
+                roll.descuentos!.length,
+                  (index) {      
+                      return Padding(
+                        padding:  EdgeInsets.only(left: getProportionateScreenWidth(5), right: getProportionateScreenWidth(20)),
+                        child: CardDescuento(descuento: roll.descuentos![index]),
+                      );          
+                  },
+                ),
+                SizedBox(width: getProportionateScreenWidth(20)),
+              ],
+            ),
+            
+          ],
               ),
-              SizedBox(width: getProportionateScreenWidth(20)),
-            ],
-          ),
-          ),
-            const Divider(
-          height: 40,
-          thickness: 2,
-          color: kContrastColor,
-          ), 
-        ],
-      ),
+        ),
     ),
       )
     );

@@ -1,6 +1,8 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:tex_app/Components/text_derecha.dart';
+import 'package:tex_app/Components/text_encabezado.dart';
 import 'package:tex_app/Models/descuento.dart';
 import 'package:tex_app/constans.dart';
 
@@ -11,22 +13,25 @@ class CardMovimiento extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.only(left: 10, right: 10),
       child: Card(
-          color:kContrastColor,
+          color:kContrastColorMedium,
             shadowColor: kPrimaryColor,
             elevation: 8,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: ListTile(
-              leading: const CircleAvatar(
-                radius: 30,
+              leading:  const CircleAvatar(
+                radius: 20,
                 backgroundImage: AssetImage('assets/iconNuevo.png'),
               ),
-              title: Text(descuento.descuento.toString()),
-              subtitle: Text(descuento.date!.substring(0,10)),
+              title: TextEncabezado(texto: 'Cant:${descuento.descuento.toString()} - Fecha: ${descuento.date!.substring(0,10)}'),
+
+                      subtitle: TextDerecha(texto: 'Vendedor: ${descuento.employee!.firstName} ${descuento.employee!.lastName}'),
           ),
           
       ),
     );
   }
 }
+
+//Text('Cant:${descuento.descuento.toString()} - Fecha: ${descuento.date!.substring(0,10)}') ,Text('Vendedor: ${descuento.employee!.firstName} ${descuento.employee!.lastName}'),

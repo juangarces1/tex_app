@@ -62,16 +62,13 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
  Widget build(BuildContext context) {
     return  SafeArea(
       child: Scaffold(
-        backgroundColor: kColorAlternativo,
+        backgroundColor: kContrastColorMedium,
         appBar: PreferredSize(
               preferredSize: const Size.fromHeight(70),
               child:  Container(
                 height: 70,
                 decoration:  const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/ImgAddPro.png'),
-                          fit: BoxFit.cover,
-                        ),),
+                  gradient: kGradientHome,),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Row(
@@ -79,12 +76,12 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: getProportionateScreenHeight(35),
-                        width: getProportionateScreenWidth(35),
+                        height: getProportionateScreenHeight(40),
+                        width: getProportionateScreenWidth(40),
                         child: TextButton(
                           style: TextButton.styleFrom(
                             foregroundColor: kPrimaryColor, shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(60),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             backgroundColor:  Colors.white,
                             padding: EdgeInsets.zero,
@@ -118,10 +115,12 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
                 ),
               ),
             ),
-        body:  swicht ? formProduct() : _showProductResult()
+        body:  swicht ? formProduct() :   _showProductResult()
         )
     );
   }
+
+  
 
  Widget formProduct(){
     return Stack(
@@ -152,6 +151,7 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
                           child: Column(children: [
                              ComboProducts(onChanged: _goChange, backgroundColor: Colors.white, products: products, titulo: 'Productos'),          
                              ComboColores(onChanged: _goChangeColor, backgroundColor: Colors.white, products: colores, titulo: 'Color'),
+                                const SizedBox(height: 10,),
                              DefaultButton(text: 'Buscar', press:  goBuscarSelect,) ,
                              const SizedBox(height: 20,)
                           ]),
@@ -246,8 +246,10 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
           product.descripcion != null ?  _showInfo() : Container(),              
                  
           product.rolls != null  ? _showListRolls(): Container(),
+
+       
                  
-          movs.isEmpty ? Container() : _showListMovs(),
+           movs.isEmpty ? Container() : _showListMovs(),
         ],
       ) 
     ),
@@ -263,14 +265,11 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),
             child: Center(
-              child: Text(
-                "Rollos",
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(20),
-                  color: kContrateFondoOscuro,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: Text('Rollos', style: GoogleFonts.oswald(
+              fontStyle: FontStyle.normal,
+               fontSize: 17,
+                fontWeight: FontWeight.w500,
+                 color: Colors.white)),
             ),
           ),
         const Divider(
@@ -305,57 +304,38 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
   } 
 
  Widget _showListMovs() {
-  return  Container(
-    
-    color: kColorAlternativo,
-      child: Column( 
-      
-        children: [
-        const SizedBox(height: 10,),
-          Center(
-            child: Text(
-              "Movimientos",
-              style: TextStyle(
-                fontSize: getProportionateScreenWidth(20),
-                color: kContrateFondoOscuro,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        const Divider(
-            height: 10,
-            thickness: 2,
-            color: kContrastColor,
-          ), 
-          
-          SizedBox(
-            height: 180,
-            child: SingleChildScrollView(
-              
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: 
-              [
-                ...List.generate(
-                movs.length,
-                  (index) {      
-                      return CardMovimiento(descuento: movs[index]);          
-                  },
-                ),
-                SizedBox(width: getProportionateScreenWidth(20)),
-              ],
-            ),
-            ),
-          ),
-            const Divider(
-          height: 10,
-          thickness: 2,
-          color: kContrastColor,
-          ), 
-        ],
+  return Column(
+    children: [
+      Container(
+         color: kColorAlternativo,
+        child: Center(
+          child: Text('Movimientos', style: GoogleFonts.oswald(
+          fontStyle: FontStyle.normal,
+           fontSize: 17,
+            fontWeight: FontWeight.w500,
+             color: Colors.white)),
+        ),
       ),
-    );
-  }     
+      Container( height: 150,
+        color: kColorAlternativo,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: ListWheelScrollView.useDelegate(  
+            perspective: 0.005,        
+            itemExtent: 80,
+            physics: const FixedExtentScrollPhysics(),
+            childDelegate: ListWheelChildBuilderDelegate(
+              builder: (context, index) {
+                return CardMovimiento(descuento: movs[index]);
+              },
+              childCount:  movs.length,
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+ }  
 
  Widget _showInfo() {     
   return Container(
@@ -716,6 +696,7 @@ class _ConsultaProductoScreenState extends State<ConsultaProductoScreen> {
      setState(() {
         showLoader=true;
     }); 
+    
    
     Response response = await ApiHelper.
     getPRoductById(code);

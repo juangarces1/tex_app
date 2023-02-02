@@ -69,12 +69,17 @@ class _AddRollScreenState extends State<AddRollScreen> {
       child: Scaffold(    
           backgroundColor: kColorAlternativo,
           appBar: AppBar(
+              leading: const BackButton(
+                color: Colors.white,
+              
+              ),
               backgroundColor: kPrimaryColor,
               title: Text(
                widget.ruta == null ? 'Crear Rollo(s)': 'Agregar Rollo(s)',
                 style: const TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.bold,
+                color: Colors.white
               ),
             ),
           ),
@@ -108,6 +113,7 @@ class _AddRollScreenState extends State<AddRollScreen> {
                      child: const Icon(
                      Icons.add,
                        size: 30,
+                        color: Colors.white,
                      ),
                      ),
                      ),
@@ -133,46 +139,43 @@ class _AddRollScreenState extends State<AddRollScreen> {
         bottomNavigationBar: BottomAppBar(
         notchMargin: 6.0,
         color: kPrimaryColor,
-        shape: const CircularNotchedRectangle(),
-        child: IconTheme(
-          data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[               
-            SizedBox(                
-              height: 50,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                  'Rollos: ${localrolls.length.toString()}', 
-                    style: const TextStyle(
-                      color: Colors.white,
-                        fontSize: 18, 
-                        fontWeight: FontWeight.bold),
-                        ),
-                ),
+       height: 50,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[               
+          SizedBox(                
+            height: 50,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left:30,),
+                child: Text(
+                'Rollos: ${localrolls.length.toString()}', 
+                  style: const TextStyle(
+                    color: Colors.white,
+                      fontSize: 18, 
+                      fontWeight: FontWeight.bold),
+                      ),
               ),
             ),
-              SizedBox(                
-              height: 35,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    localrolls.isNotEmpty ? 'Cantidad: ${NumberFormat("###,000", "es_CO").format(localrolls.map((item)=>item.cantidad!).reduce((value, element) => value + element))}' : '', 
-                    style: const TextStyle(
-                      color: Colors.white,
-                        fontSize: 15, 
-                        fontWeight: FontWeight.bold),
-                        ),
-                ),
-              ),
-            ),
-            
-            ],          
           ),
+            SizedBox(                
+            height: 50,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: Text(
+                  localrolls.isNotEmpty ? 'Cantidad: ${NumberFormat("###,000", "es_CO").format(localrolls.map((item)=>item.cantidad!).reduce((value, element) => value + element))}' : '', 
+                  style: const TextStyle(
+                    color: Colors.white,
+                      fontSize: 15, 
+                      fontWeight: FontWeight.bold),
+                      ),
+              ),
+            ),
+          ),
+          
+          ],          
         ),
       ), 
           

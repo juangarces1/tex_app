@@ -50,6 +50,7 @@ class _InventarioScreenState extends State<InventarioScreen> {
       children: [
         Scaffold(
           appBar:  AppBar(
+            leading: const BackButton(color: Colors.white,),
             backgroundColor: kPrimaryColor,
             title:  Text( 'Inventario', style : GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
           actions: [
@@ -59,33 +60,30 @@ class _InventarioScreenState extends State<InventarioScreen> {
           body:  inventario.detalle.isNotEmpty ? tablaInv() : formInv(),
           bottomNavigationBar: BottomAppBar(
           color: kContrastColorMedium,
-          shape: const CircularNotchedRectangle(),
-          child: IconTheme(
-           data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-           child: SizedBox(
-            height: 50,
-             child: inventario.detalle.isNotEmpty ? 
-              Center(
-                child: Row(
-                 mainAxisSize: MainAxisSize.max,
-                 mainAxisAlignment: MainAxisAlignment.start,
-                  children:  <Widget>[             
-                  const SizedBox(width: 40,),
-                  const TextEncabezado(texto: 'Total: '),
-                  TextDerecha(texto: inventario.total!),
-                  const SizedBox(width: 5,),
-                  const TextEncabezado(texto: 'Mts: '),
-                  TextDerecha(texto: inventario.metros!),
-                  const SizedBox(width: 5,),
-                  const TextEncabezado(texto: 'Kgs: '),
-                  TextDerecha(texto: inventario.kilos!),
-                  const SizedBox(width: 5,),
-                  const TextEncabezado(texto: 'Rollos: '),
-                  TextDerecha(texto: inventario.rollos!),
-                ],          
-              ),
-            ) : Container(),
-           ),
+           height: 50,
+          child: SizedBox(
+           height: 50,
+            child: inventario.detalle.isNotEmpty ? 
+             Center(
+               child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                 children:  <Widget>[             
+                 const SizedBox(width: 40,),
+                 const TextEncabezado(texto: 'Total: '),
+                 TextDerecha(texto: inventario.total!),
+                 const SizedBox(width: 5,),
+                 const TextEncabezado(texto: 'Mts: '),
+                 TextDerecha(texto: inventario.metros!),
+                 const SizedBox(width: 5,),
+                 const TextEncabezado(texto: 'Kgs: '),
+                 TextDerecha(texto: inventario.kilos!),
+                 const SizedBox(width: 5,),
+                 const TextEncabezado(texto: 'Rollos: '),
+                 TextDerecha(texto: inventario.rollos!),
+               ],          
+             ),
+           ) : Container(),
           ),
          ), ),
         showLoader ? const LoaderComponent(text: 'Cargando') : Container(),
@@ -274,6 +272,7 @@ class _InventarioScreenState extends State<InventarioScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   child: Column(children: [
                     ComboProducts(onChanged: changeProduct, backgroundColor: kContrastColor, products: products, titulo: 'Productos'),
+                     const SizedBox(height: 5,),
                     DefaultButton(text: 'Filtrar', press: () => getByProduct(),),
                     const SizedBox(height: 20,),
                   ]),
@@ -291,6 +290,7 @@ class _InventarioScreenState extends State<InventarioScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   child: Column(children: [
                      ComboCategorias(onChanged: changeCategoria, backgroundColor: kContrastColor, categories: categories, titulo: 'Categorias'),
+                      const SizedBox(height: 5,),
                      DefaultButton(text: 'Filtrar', press: () => getByCategoria(),),
                     const SizedBox(height: 20,),
                   ]),

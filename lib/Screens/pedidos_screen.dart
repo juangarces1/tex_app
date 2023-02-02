@@ -59,30 +59,23 @@ class _PedidosScreenState extends State<PedidosScreen> {
        
         body:  Center(
           child: showLoader ? const LoaderComponent(text: 'Por favor espere...') : _getContent()),
-        bottomNavigationBar: BottomAppBar(
-          color: kPrimaryColor,
-          shape: const CircularNotchedRectangle(),
-          child: IconTheme(
-           data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-           child: Container(
-            height: 50,
-            decoration: const BoxDecoration(
-              gradient: kGradientHome
-            ),
-             child: Row(
-               mainAxisSize: MainAxisSize.max,
-               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-              
-            
-                 Text(
-                   pedidos.isNotEmpty ? 'Pedidos: ${pedidos.length.toString()}  --  Total: ${NumberFormat("###,000", "es_CO").format(pedidos.map((item)=>item.total!).reduce((value, element) => value + element))}' : '', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+        bottomNavigationBar: Container(
+         height: 50,
+         decoration: const BoxDecoration(
+           gradient: kGradientHome
+         ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             children: <Widget>[
+           
+         
+              Text(
+                pedidos.isNotEmpty ? 'Pedidos: ${pedidos.length.toString()}  --  Total: ${NumberFormat("###,000", "es_CO").format(pedidos.map((item)=>item.total!).reduce((value, element) => value + element))}' : '', style:  GoogleFonts.oswald(fontStyle: FontStyle.normal, fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
 
-                 ],          
-               ),
-           ),
-          ),
-         ), 
+              ],          
+            ),
+        ), 
        
       ),
     );

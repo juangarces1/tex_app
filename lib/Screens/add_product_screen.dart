@@ -248,10 +248,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
       );     
       return;
     }    
-
+   
     setState(() {
       rollAux= response.result;
-      precioController.text=rollAux.product!.venta!;
+      
+      precioController.text=  rollAux.product!.venta.toString().substring(0,rollAux.product!.venta.toString().length-3);
     });
   }
 
@@ -377,10 +378,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
      showErrorFromDialog(response.message);
       return;
     }   
-
+    int venta = int.parse(rollAux.product!.venta!);
     setState(() {
       rollAux= response.result;
       codigoController.text=rollAux.id.toString();
+        precioController.text=venta.toString();
     });
   }
   

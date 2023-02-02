@@ -146,6 +146,7 @@ class ApiHelper{
       }
     return Response(isSuccess: true, result: categories);
  }
+ 
   static Future<Response> getSuppliers() async {  
     var url = Uri.parse('${Constans.apiUrl}/api/kilos/GetSuppliers/');
     var response = await http.get(

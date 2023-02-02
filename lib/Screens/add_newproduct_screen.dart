@@ -81,12 +81,14 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
       child: Scaffold(    
         backgroundColor: kColorAlternativo,
         appBar: AppBar(
+            leading: const BackButton(color: Colors.white,),
             backgroundColor: kPrimaryColor,
             title:  const Text(
               'Crear Producto(s)',
               style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
             ),
           ),
         ),
@@ -111,32 +113,29 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
           bottomNavigationBar: BottomAppBar(
               notchMargin: 6.0,
           color: kPrimaryColor,
-          shape: const CircularNotchedRectangle(),
-          child: IconTheme(
-            data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-            child: Row(
-             mainAxisSize: MainAxisSize.max,
-             mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[               
-              SizedBox(                
-                height: 50,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text(
-                    'Productos:${products.length.toString()}', 
-                      style: const TextStyle(
-                        color: Colors.white,
-                         fontSize: 18, 
-                         fontWeight: FontWeight.bold),
-                         ),
-                  ),
+         height: 50,
+          child: Row(
+           mainAxisSize: MainAxisSize.max,
+           mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[               
+            SizedBox(                
+              height: 50,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(
+                  'Productos: ${products.length.toString()}', 
+                    style: const TextStyle(
+                      color: Colors.white,
+                       fontSize: 18, 
+                       fontWeight: FontWeight.bold),
+                       ),
                 ),
               ),
-             
-               ],          
-             ),
-          ),
+            ),
+           
+             ],          
+           ),
          ), 
         
       ),
@@ -232,6 +231,7 @@ Widget _showDescripcion() {
                child: const Icon(
                  Icons.add,
                   size: 30,
+                  color: Colors.white,
                 ),
               ),
             ),
