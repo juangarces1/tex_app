@@ -65,7 +65,7 @@ List<Menu> menus = [];
     return Container(  
        decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/fondoApp4.jpg"),
+                image: AssetImage("assets/FondoColores.png"),
                 fit: BoxFit.cover,
               ),),    
       padding: const EdgeInsets.all(10),
@@ -237,7 +237,7 @@ List<Menu> menus = [];
       menu= Menu(nombre: 'Orden', assetV: 'assets/Op.png', color: const Color.fromARGB(255, 4, 46, 66).withOpacity(0.7));
       menus.add(menu);
       
-      menu = Menu(nombre: 'Consultar Producto', assetV: 'assets/iconNuevo.png', color: const Color.fromARGB(255, 46, 3, 39).withOpacity(0.7));
+      menu = Menu(nombre: 'Consultar Producto', assetV: 'assets/Rollos6.png', color: const Color.fromARGB(255, 46, 3, 39).withOpacity(0.7));
       menus.add(menu);
 
       menu= Menu(nombre: 'Inventario', assetV: 'assets/rollos1.png', color: const Color.fromARGB(255, 2, 28, 70).withOpacity(0.7));
